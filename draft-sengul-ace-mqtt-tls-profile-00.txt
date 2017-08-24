@@ -74,17 +74,17 @@ Table of Contents
        2.1.2.  Client connection request to the broker . . . . . . .   7
        2.1.3.  Token validation  . . . . . . . . . . . . . . . . . .   9
        2.1.4.  The broker's response to client connection request  .  10
-     2.2.  Authorizing PUBLISH messages  . . . . . . . . . . . . . .  10
+     2.2.  Authorizing PUBLISH messages  . . . . . . . . . . . . . .  11
        2.2.1.  PUBLISH messages from the publisher client to the
                broker  . . . . . . . . . . . . . . . . . . . . . . .  11
        2.2.2.  PUBLISH messages from the broker to the subscriber
                clients . . . . . . . . . . . . . . . . . . . . . . .  12
      2.3.  Authorizing SUBSCRIBE messages  . . . . . . . . . . . . .  12
      2.4.  Token expiration  . . . . . . . . . . . . . . . . . . . .  13
-     2.5.  Handling disconnections . . . . . . . . . . . . . . . . .  13
+     2.5.  Handling disconnections . . . . . . . . . . . . . . . . .  14
      2.6.  Handling retained messages  . . . . . . . . . . . . . . .  14
    3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
    5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  15
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
@@ -479,12 +479,13 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
 2.1.3.  Token validation
 
    RS MUST verify the validity of the token.  This validation MAY be
-   done locally or the RS MAY send an introspection request to the AS.
-   If introspection is used, this section follows similar steps to those
-   described in Sections 7.2 and 7.3 of the ACE framework
-   [I-D.ietf-ace-oauth-authz].  The communication between AS and RS MAY
-   be HTTPS, but it, in every case, MUST be confidential, mutually
-   authenticated and integrity protected.
+   done locally or (e.g., in the case of a self-contained token) or the
+   RS MAY send an introspection request to the AS.  If introspection is
+   used, this section follows similar steps to those described in
+   Sections 7.2 and 7.3 of the ACE framework [I-D.ietf-ace-oauth-authz].
+   The communication between AS and RS MAY be HTTPS, but it, in every
+   case, MUST be confidential, mutually authenticated and integrity
+   protected.
 
    The broker MUST check if the token is active either using
    'expires_in' parameter of the token or 'active' parameter of the
@@ -495,9 +496,8 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
    Access Token is a PoP token as described in
    [I-D.ietf-ace-oauth-authz].  Therefore, the necessary information is
    contained in the 'cnf' claim of the access token, and may use either
-   public or shared key approaches.  The client uses the 'mac' parameter
-   in the password field to prove the possession of the key.  The
-
+   public or shared key approaches.  The client uses the signature or
+   the MAC in the password field to prove the possession of the key.
 
 
 
@@ -506,8 +506,9 @@ Sengul & Kirby          Expires February 25, 2018               [Page 9]
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
 
-   resource server validates the 'mac' over the contents of the packet,
-   authenticating the client.
+   Depending on the chosen implementation, the resource server validates
+   the signature or the MAC over the token or the contents of the
+   packet, authenticating the client.
 
    The broker uses the scope field in the token (or in the introspection
    result) to determine the publish and subscribe permissions for the
@@ -549,10 +550,9 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
    If the RS accepts the connection, it MUST store the token.
 
-2.2.  Authorizing PUBLISH messages
 
-   Figure 4 shows the PUBLISH message used in MQTT, which includes fixed
-   and variable headers.
+
+
 
 
 
@@ -561,6 +561,11 @@ Sengul & Kirby          Expires February 25, 2018              [Page 10]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+2.2.  Authorizing PUBLISH messages
+
+   Figure 4 shows the PUBLISH message used in MQTT, which includes fixed
+   and variable headers.
 
           0            8            16            24            32
           +------------------------------------------------------+
@@ -605,11 +610,6 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
    for the client and MUST store the new token as not all PUBLISH
    messages may carry tokens.
 
-   If the application message does not contain a token, the broker MUST
-   use the type of message (i.e., PUBLISH) and the topic name in the
-   message header to compare against the 'scope' field of the cached
-   introspection result for the client.
-
 
 
 
@@ -617,6 +617,11 @@ Sengul & Kirby          Expires February 25, 2018              [Page 11]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+   If the application message does not contain a token, the broker MUST
+   use the type of message (i.e., PUBLISH) and the topic name in the
+   message header to compare against the 'scope' field of the cached
+   introspection result for the client.
 
    If the client is allowed to publish to the topic, the broker may
    return an acknowledgment message.  This is determined by the QoS
@@ -661,11 +666,6 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
    In MQTT, a SUBSCRIBE message is sent from a client to the broker, to
    create one or more subscriptions to one or more topics.
 
-   Figure 6 shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE
-   message may contain multiple topic filters.  The topic filters may
-   include wildcard characters.
-
-
 
 
 
@@ -673,6 +673,10 @@ Sengul & Kirby          Expires February 25, 2018              [Page 12]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+   Figure 6 shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE
+   message may contain multiple topic filters.  The topic filters may
+   include wildcard characters.
 
           0            8            16            24            32
           +------------------------------------------------------+
@@ -717,11 +721,7 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
    Appendix C describes an alternative method, where clients are allowed
    to update tokens, avoiding disconnections.
 
-2.5.  Handling disconnections
 
-   According to MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], only
-   Client DISCONNECT messages are allowed.  (This is expected to change
-   in the future, enabling Server DISCONNECT messages.)  In the case of
 
 
 
@@ -730,6 +730,11 @@ Sengul & Kirby          Expires February 25, 2018              [Page 13]
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
 
+2.5.  Handling disconnections
+
+   According to MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], only
+   Client DISCONNECT messages are allowed.  (This is expected to change
+   in the future, enabling Server DISCONNECT messages.)  In the case of
    a Client DISCONNECT, due to the Clean Session flag, the broker
    deletes all session state but MUST keep the retained messages and
    send them according to methodology described in Section 2.6.  The
@@ -771,11 +776,6 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
    This memo includes no request to IANA.
 
-4.  Security Considerations
-
-   TBD.
-
-
 
 
 
@@ -785,6 +785,10 @@ Sengul & Kirby          Expires February 25, 2018              [Page 14]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+4.  Security Considerations
+
+   TBD.
 
 5.  Privacy Considerations
 
@@ -826,11 +830,7 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
               Internet of Things, September 2014,
               <http://dx.doi.org/10.1109/SIoT.2014.8>.
 
-   [I-D.ietf-ace-actors]
-              Gerdes, S., Seitz, L., Selander, G., and C. Bormann, "An
-              architecture for authorization in constrained
-              environments", draft-ietf-ace-actors-05 (work in
-              progress), March 2017.
+
 
 
 
@@ -841,6 +841,12 @@ Sengul & Kirby          Expires February 25, 2018              [Page 15]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+   [I-D.ietf-ace-actors]
+              Gerdes, S., Seitz, L., Selander, G., and C. Bormann, "An
+              architecture for authorization in constrained
+              environments", draft-ietf-ace-actors-05 (work in
+              progress), March 2017.
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
@@ -884,12 +890,6 @@ Appendix A.  Checklist for profile requirements
    o  /authz-info endpoint: It MAY be supported using the method
       described in Appendix B, not protected.
 
-   o  Token transport: In MQTT CONNECT message or using the method
-      described in Appendix B.
-
-
-
-
 
 
 
@@ -897,6 +897,9 @@ Sengul & Kirby          Expires February 25, 2018              [Page 16]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+   o  Token transport: In MQTT CONNECT message or using the method
+      described in Appendix B.
 
 Appendix B.  The `authorization information' endpoint
 
@@ -943,9 +946,6 @@ Appendix C.  Error handling and token updates
    To enable token updates during the lifetime of a connection, and also
    to allow the broker to send error messages to a client, this section
    proposes using a client-specific "authz-info-${ClientId}" topic.
-   This case requires three states: 'Disconnected', 'Connected' and
-   'Authorized', shown in Figure 8.
-
 
 
 
@@ -953,6 +953,9 @@ Sengul & Kirby          Expires February 25, 2018              [Page 17]
 
 Internet-Draft           MQTT-TLS profile of ACE             August 2017
 
+
+   This case requires three states: 'Disconnected', 'Connected' and
+   'Authorized', shown in Figure 8.
 
    In the Disconnected state, as before, the client needs to transport
    the token and attempt to establish a connection.  Token transport MAY
@@ -997,9 +1000,6 @@ Internet-Draft           MQTT-TLS profile of ACE             August 2017
    While this solution allows better authorization error feedback, it is
    a more complex solution.  The broker needs to maintain separate
    authz-info topics for separate clients.
-
-
-
 
 
 

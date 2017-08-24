@@ -499,7 +499,7 @@
                 <section title="Token validation">
                     <t>
                         RS MUST verify the validity of the token.
-                        This validation MAY be done locally or the RS MAY send an introspection request to the AS.
+                        This validation MAY be done locally or (e.g., in the case of a self-contained token) or the RS MAY send an introspection request to the AS.
                         If introspection is used, this section follows similar steps to those described in Sections 7.2
                         and 7.3 of <xref target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
                         The communication between AS and RS MAY be HTTPS, but it, in every case, MUST be confidential,
@@ -518,9 +518,9 @@
                         Therefore, the necessary information is contained in the 'cnf' claim of the access token, and
                         may use either public or shared key
                         approaches.
-                        The client uses the 'mac' parameter in the password field to prove the possession of the key.
-                        The resource server validates the 'mac'
-                        over the contents of the packet, authenticating the client.
+                        The client uses the signature or the MAC  in the password field to prove the possession of the key.
+                        Depending on the chosen implementation, the resource server validates the signature or the MAC
+                        over the token or the contents of the packet, authenticating the client.
                     </t>
                     <t>
                         The broker uses the scope field in the token (or in the introspection result) to determine the publish and
