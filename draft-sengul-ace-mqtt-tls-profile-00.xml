@@ -368,9 +368,9 @@
            ]]></artwork>
                 </figure>
 
-                <section title="Client Authorization Server (CAS) to Authorization Server (AS)">
+                <section title="Client Authorization Server (CAS) and Authorization Server (AS) Interaction">
                     <t>
-                        The first step in the protocol flow is token acquisition by the client authorization server
+                        The first step in the protocol flow (A) is token acquisition by the client authorization server
                         (CAS) from the AS.
                         If a client has enough resources and can support HTTPS, or optionally the AS supports MQTT,
                         these steps can instead be carried out
@@ -380,27 +380,17 @@
                         When requesting an access token from the AS, the CAS MAY include parameters in its request as
                         defined in Section 6.1
                         of <xref target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>. The content type is set to
-                        "application/json".
+                        "application/json". The profile name is 'mqtt_tls'.
                     </t>
-                    <t>
-                        The response contains a token and a 'cnf' parameter with a symmetric or asymmetric
-                        proof-of-possession (PoP) key.
-                    </t>
-                    <t>
-                        The token request is similar to the examples presented in Section 6.1. of <xref
-                            target="I-D.ietf-ace-oauth-authz">the ACE
-                        framework
-                    </xref> with a modified profile name 'mqtt_tls'.
-                    </t>
-                </section>
-                <section title="Authorization Server (AS) to Client Authorization Server (CAS)">
                     <t>
                         If the access token request has been successfully verified by the AS and the client is
                         authorized to obtain a PoP token for the
                         indicated audience (i.e., broker) and scopes (i.e., publish/subscribe to the requested topics),
-                        the AS issues an access token.
+                        the AS issues an access token (B).
                         The response includes the parameters described in Section 6.2 of <xref
-                            target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
+                            target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.  
+			This includes a token and a 'cnf' parameter with a symmetric or asymmetric
+                        proof-of-possession (PoP) key.
                     </t>
                     <t>
                         In the case of an error, the AS returns error responses for HTTP-based interactions as ASCII
