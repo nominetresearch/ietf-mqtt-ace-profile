@@ -150,9 +150,11 @@
                 This document specifies a profile for the ACE framework <xref target="I-D.ietf-ace-oauth-authz"></xref>.
                 In this profile, clients and a resource server use MQTT to communicate. The protocol relies on TLS for
                 communication security between entities.
-                Protocol interactions follow  <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
-                Future releases may enable improvements to the protocol operation (e.g., by allowing MQTT message return
-                codes for authorization errors).
+                The basic protocol interactions follow  <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
+		The document also describes improvements to this basic protocol operation with the new
+		<xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref> (e.g., improved authentication
+	        exchange and error reporting). Both versions are expected to be supported in practice, and therefore, covered
+		in this document.
             </t>
             <t>
                 MQTT is a publish-subscribe protocol, and supports two types of client operation: publish and subscribe.
@@ -815,6 +817,28 @@
                     <date year="2015"/>
                 </front>
             </reference>
+
+	    <reference anchor="MQTT-OASIS-Standard-v5"
+		       target="http://docs.oasis-open.org/mqtt/mqtt/v5.0/csprd01/mqtt-v5.0-csprd01.html">
+	       <front>
+		 <title>
+		   OASIS Public Review Draft 01 MQTT Version 5.0
+		 </title>
+		 <author initials="A." surname="Banks" role="editor">
+		   <organization>IBM</organization>
+		 </author>
+		 <author initials="E." surname="Briggs" role="editor">
+		   <organization>Microsoft</organization>
+		 </author>
+		 <author initials="K." surname="Borgendale" role="editor">
+		   <organization>IBM</organization>
+		 </author>
+		 <author initials="R." surname="Gupta" role="editor">
+                   <organization>IBM</organization>
+                 </author>
+		 <date year="2017"/>
+ 	       </front>   
+	    </reference>
 
             <?rfc include="reference.I-D.ietf-ace-oauth-authz.xml"?>
 
