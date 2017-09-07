@@ -500,7 +500,7 @@
 <p id="rfc.section.1.p.1">This document specifies a profile for the ACE framework <a href="#I-D.ietf-ace-oauth-authz">[I-D.ietf-ace-oauth-authz]</a>.  In this profile, clients and a resource server use MQTT to communicate. The protocol relies on TLS for communication security between entities.  The basic protocol interactions follow  <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>.  The document also describes improvements to this basic protocol operation with the new <a href="#MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</a> <cite title="NONE">[MQTT-OASIS-Standard-v5]</cite> (e.g., improved authentication exchange and error reporting). Both versions are expected to be supported in practice, and therefore, covered in this document.  </p>
 <p id="rfc.section.1.p.2">MQTT is a publish-subscribe protocol, and supports two types of client operation: publish and subscribe.  Once connected, a client can publish to multiple topics, and subscribe to multiple topics; however for the purpose of this document these actions are described separately.  The MQTT broker is responsible for distributing messages published by the publishers to the appropriate subscribers.  Each publish message contains a topic, which is used by the broker to filter the subscribers for the message.  Subscribers must subscribe to the topics to receive the corresponding messages.  </p>
 <p id="rfc.section.1.p.3">In this document, message topics are treated as resources.  Both publisher and subscriber clients use an access token, each bound to a key (the proof-of-possession key) to authorize with the MQTT broker their connection and publish/subscribe permissions to topics. In the context of this ACE profile, the MQTT broker acts as the resource server.  In order to provide communication confidentiality and resource server authentication, TLS is used.  </p>
-<p id="rfc.section.1.p.4">The publisher and subscriber clients use client authorization servers <a href="#I-D.ietf-ace-actors">[I-D.ietf-ace-actors]</a> to obtain tokens from the authorization server. The communication protocol between the client authorization server and the authorization server is assumed to be HTTPS.  Also, if the broker supports token introspection, it is assumed to use HTTPS to communicate with the authorization server.  These interfaces MAY be implemented using other protocols e.g., CoAP or MQTT.  This document makes the same assumptions as the Section 4 of <a href="#I-D.ietf-ace-oauth-authz">the ACE framework </a> <cite title="NONE">[I-D.ietf-ace-oauth-authz]</cite> in terms of client and RS registration with the AS and establishing of keying material.  </p>
+<p id="rfc.section.1.p.4">The publisher and subscriber clients use client authorization servers <a href="#I-D.ietf-ace-actors">[I-D.ietf-ace-actors]</a> to obtain tokens from the authorization server. The communication protocol between the client authorization server and the authorization server is assumed to be HTTPS.  Also, if the broker supports token introspection, it is assumed to use HTTPS to communicate with the authorization server.  These interfaces MAY be implemented using other protocols e.g., CoAP or MQTT.  This document makes the same assumptions as the Section 4 of <a href="#I-D.ietf-ace-oauth-authz">the ACE framework</a> <cite title="NONE">[I-D.ietf-ace-oauth-authz]</cite> in terms of client and RS registration with the AS and establishing of keying material.  </p>
 <p id="rfc.section.1.p.5">This document describes authorization of the following exchanges between publisher and subscriber clients, and the broker.  </p>
 <p/>
 
@@ -511,6 +511,7 @@
 </ul>
 
 <p> </p>
+<p id="rfc.section.1.p.7">In Section <a href="#basic-protocol">Section 2</a>, these exchanges are described based on the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>. Section [PLACEHOLDER], describes how these exchanges may be improved by the new <a href="#MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</a> <cite title="NONE">[MQTT-OASIS-Standard-v5]</cite>.  </p>
 <h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> Requirements Language</h1>
 <p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">RFC 2119</a> <cite title="NONE">[RFC2119]</cite>.  </p>
 <h1 id="rfc.section.1.2"><a href="#rfc.section.1.2">1.2.</a> ACE-Related Terminology</h1>
@@ -519,7 +520,7 @@
 <p id="rfc.section.1.2.p.3">The term "Resource" is used to refer to an MQTT "topic", which is defined in Section 1.2.  Hence, the "Resource Owner" is any entity that can authoritatively speak for the "topic".  </p>
 <p id="rfc.section.1.2.p.4">Certain security-related terms such as "authentication", "authorization", "confidentiality", "(data) integrity", "message authentication code", and "verify" are taken from  <a href="#RFC4949">RFC 4949</a> <cite title="NONE">[RFC4949]</cite>.  </p>
 <h1 id="rfc.section.1.3"><a href="#rfc.section.1.3">1.3.</a> MQTT-Related Terminology</h1>
-<p id="rfc.section.1.3.p.1">The document describes message exchanges as MQTT protocol interactions. For additional information, please refer to the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>.  </p>
+<p id="rfc.section.1.3.p.1">The document describes message exchanges as MQTT protocol interactions. For additional information, please refer to the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite> or the <a href="#MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</a> <cite title="NONE">[MQTT-OASIS-Standard-v5]</cite>.  </p>
 <p/>
 
 <dl>
@@ -554,7 +555,7 @@
 </dl>
 
 <p> </p>
-<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> Protocol Interactions</h1>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#basic-protocol" id="basic-protocol">Protocol Interactions</a></h1>
 <p id="rfc.section.2.p.1">This document describes the following exchanges between publisher and subscriber clients, the broker, and the authorization server.  </p>
 <p/>
 

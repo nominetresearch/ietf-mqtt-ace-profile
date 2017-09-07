@@ -185,9 +185,7 @@
                 authorization server.
                 These interfaces MAY be implemented using other protocols e.g., CoAP or MQTT.
                 This document makes the same assumptions as the Section 4 of <xref target="I-D.ietf-ace-oauth-authz">the
-                ACE framework
-            </xref> in
-                terms of client and RS registration with the AS and establishing of keying material.
+                ACE framework</xref> in terms of client and RS registration with the AS and establishing of keying material.
             </t>
 
             <t>This document describes authorization of the following exchanges between publisher and subscriber
@@ -200,6 +198,11 @@
                     <t>Subscribe messages from the subscribers to the broker</t>
                 </list>
             </t>
+	    <t>
+	      In Section <xref target="basic-protocol"></xref>, these exchanges are described based on the
+	      <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>. Section [PLACEHOLDER], describes how these exchanges
+	      may be improved by the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref>. 
+	    </t>
 
             <section title="Requirements Language">
                 <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -234,7 +237,8 @@
             <section title="MQTT-Related Terminology">
                 <t>
                     The document describes message exchanges as MQTT protocol interactions. For additional information,
-                    please refer to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
+                    please refer to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref> or the
+		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref>.
                 </t>
                 <t>
                     <list hangIndent="8" style="hanging">
@@ -306,7 +310,7 @@
 
         </section>
 
-        <section title="Protocol Interactions">
+        <section title="Protocol Interactions" anchor="basic-protocol">
             <t>This document describes the following exchanges between publisher and subscriber clients, the broker, and
                 the authorization server.
             </t>

@@ -64,7 +64,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   3
+     1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      1.2.  ACE-Related Terminology . . . . . . . . . . . . . . . . .   4
      1.3.  MQTT-Related Terminology  . . . . . . . . . . . . . . . .   4
    2.  Protocol Interactions . . . . . . . . . . . . . . . . . . . .   5
@@ -153,11 +153,11 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    o  Subscribe messages from the subscribers to the broker
 
-1.1.  Requirements Language
+   In Section Section 2, these exchanges are described based on the MQTT
+   v3.1 - OASIS Standard [MQTT-OASIS-Standard].  Section [PLACEHOLDER],
+   describes how these exchanges may be improved by the new MQTT v5 -
+   OASIS Specification Draft [MQTT-OASIS-Standard-v5].
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in RFC 2119 [RFC2119].
 
 
 
@@ -169,6 +169,12 @@ Sengul & Kirby           Expires March 11, 2018                 [Page 3]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+1.1.  Requirements Language
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in RFC 2119 [RFC2119].
 
 1.2.  ACE-Related Terminology
 
@@ -191,7 +197,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    The document describes message exchanges as MQTT protocol
    interactions.  For additional information, please refer to the MQTT
-   v3.1 - OASIS Standard [MQTT-OASIS-Standard].
+   v3.1 - OASIS Standard [MQTT-OASIS-Standard] or the MQTT v5 - OASIS
+   Specification Draft [MQTT-OASIS-Standard-v5].
 
    Topic name
            The label attached to an application message, which is
@@ -211,13 +218,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    MQTT sends various control messages across a network connection.  The
    following is not an exhaustive list, and the control packets that are
-   not relevant for authorization are not explained.  These include, for
-   instance, the PUBREL and PUBCOMP packets used in the 4-step handshake
-   required for the QoS level 2.
-
-   CONNECT
-
-
 
 
 
@@ -226,6 +226,11 @@ Sengul & Kirby           Expires March 11, 2018                 [Page 4]
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
+   not relevant for authorization are not explained.  These include, for
+   instance, the PUBREL and PUBCOMP packets used in the 4-step handshake
+   required for the QoS level 2.
+
+   CONNECT
            Client request to connect to the broker.  After a network
            connection is established, this is the first packet sent by a
            client.
@@ -269,11 +274,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    o  Authorizing subscribe messages from the subscribers to the broker
 
-   Message topics are treated as resources.  The publisher and
-   subscriber clients are assumed to have identified the topics of
-   interest out-of-band (topic discovery is not a feature of the MQTT
-   protocol).
-
 
 
 
@@ -281,6 +281,11 @@ Sengul & Kirby           Expires March 11, 2018                 [Page 5]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+   Message topics are treated as resources.  The publisher and
+   subscriber clients are assumed to have identified the topics of
+   interest out-of-band (topic discovery is not a feature of the MQTT
+   protocol).
 
    A connection request carries a token specifying the permissions that
    the client has (e.g., publish permission to a given topic).  A
@@ -324,11 +329,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
            response
 
                     Figure 1: Connection establishment
-
-
-
-
-
 
 
 
