@@ -399,7 +399,6 @@
 <link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References"/>
 <link href="#rfc.appendix.A" rel="Chapter" title="A Checklist for profile requirements"/>
 <link href="#rfc.appendix.B" rel="Chapter" title="B The `authorization information' endpoint"/>
-<link href="#rfc.appendix.C" rel="Chapter" title="C Error handling and token updates"/>
 <link href="#rfc.acknowledgements" rel="Chapter"/>
 <link href="#rfc.authors" rel="Chapter"/>
 
@@ -491,7 +490,6 @@
 <li>6.2.   <a href="#rfc.references.2">Informative References</a></li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Checklist for profile requirements</a></li>
 <li>Appendix B.   <a href="#rfc.appendix.B">The `authorization information' endpoint</a></li>
-<li>Appendix C.   <a href="#rfc.appendix.C">Error handling and token updates</a></li>
 <li><a href="#rfc.acknowledgements">Acknowledgements</a></li>
 <li><a href="#rfc.authors">Authors' Addresses</a></li>
 
@@ -694,10 +692,10 @@
 <p id="rfc.section.2.2.1.p.2">If the application message contains a token, the broker MAY locally inspect the token or MAY use the /introspect interface of the authorization server.  The token received in the PUBLISH message MAY be different than the one stored after connection handshake.  On receiving a new token, the RS discards any previously stored token for the client and MUST store the new token as not all PUBLISH messages may carry tokens.  </p>
 <p id="rfc.section.2.2.1.p.3">If the application message does not contain a token, the broker MUST use the type of message (i.e., PUBLISH) and the topic name in the message header to compare against the 'scope' field of the cached introspection result for the client.  </p>
 <p id="rfc.section.2.2.1.p.4">If the client is allowed to publish to the topic, the broker may return an acknowledgment message.  This is determined by the QoS flags in the Flags field of the PUBLISH header.  If QoS level is 0, the RS does not send back a response.  If the QoS level is equal or greater than 1, the RS must respond with an acknowledgement message (i.e., PUBACK for QoS=1 or PUBREC for QoS=2).  These messages can currently only indicate success, and there is no equivalent 'NACK' to indicate failure.  Next, the RS must publish the message to all valid subscribers to the topic.  </p>
-<p id="rfc.section.2.2.1.p.5">In the case of an authorization error, the broker SHOULD disconnect the client. Otherwise, it MUST silently ignore the message.  In the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, the MQTT DISCONNECT messages are only sent from a client to the broker. So, server disconnection needs to take place below the application layer.  <a href="#app-additional">Appendix C</a> describes an alternative method for handling authorization errors, possibly avoiding disconnections.  </p>
+<p id="rfc.section.2.2.1.p.5">In the case of an authorization error, the broker SHOULD disconnect the client. Otherwise, it MUST silently ignore the message.  In the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, the MQTT DISCONNECT messages are only sent from a client to the broker. So, server disconnection needs to take place below the application layer.  </p>
 <h1 id="rfc.section.2.2.2"><a href="#rfc.section.2.2.2">2.2.2.</a> PUBLISH messages from the broker to the subscriber clients</h1>
 <p id="rfc.section.2.2.2.p.1">To forward PUBLISH messages to the subscribing clients, the broker identifies all the subscribers that have matching valid topic subscriptions (i.e., the tokens are valid and token scopes allow a subscription to the particular topic name).  The broker sends a PUBLISH message with the topic name and the topic message to all the valid subscribers.  </p>
-<p id="rfc.section.2.2.2.p.2">In MQTT, after connection establishment there is no way to inform a client that an authorization error has occurred for previously subscribed topics, e.g., token expiry.  In the case of an authorization error, the broker has two options: (1) stop forwarding PUBLISH messages to the unauthorized client or (2) disconnect the client.  In the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, the MQTT DISCONNECT messages are only sent from a client to the broker.  Therefore, the server disconnection needs to take place below the application layer.  <a href="#app-additional">Appendix C</a> describes an alternative method, where disconnections may be avoided.  </p>
+<p id="rfc.section.2.2.2.p.2">In MQTT, after connection establishment there is no way to inform a client that an authorization error has occurred for previously subscribed topics, e.g., token expiry.  In the case of an authorization error, the broker has two options: (1) stop forwarding PUBLISH messages to the unauthorized client or (2) disconnect the client.  In the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, the MQTT DISCONNECT messages are only sent from a client to the broker.  Therefore, the server disconnection needs to take place below the application layer.  </p>
 <h1 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3.</a> Authorizing SUBSCRIBE messages</h1>
 <p id="rfc.section.2.3.p.1">In MQTT, a SUBSCRIBE message is sent from a client to the broker, to create one or more subscriptions to one or more topics.  </p>
 <p><a href="#mqtt_subscribe_message">Figure 6</a> shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE message may contain multiple topic filters.  The topic filters may include wildcard characters.  </p>
@@ -718,9 +716,9 @@
 <p class="figure">Figure 6: MQTT SUBSCRIBE control message. (CPT=Control Packet Type, Rsvd.=Reserved, QoS=Quality of Service)</p>
 <p id="rfc.section.2.3.p.3">The SUBSCRIBE message does not have any field suitable for including a token.  Therefore, on receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e., SUBSCRIBE) and the topic name in the message header to compare against the 'scope' field of the stored token or introspection result.  </p>
 <p id="rfc.section.2.3.p.4">As a response to the SUBSCRIBE message, the broker issues a SUBACK message. For each topic filter, the SUBACK packet includes a return code.  In the case of success, the return code must be either 0x00, 0x01 or 0x02, matching the QoS level for the corresponding topic filter.  </p>
-<p id="rfc.section.2.3.p.5">In the case of failure, the return code must be 0x08 indicating 'Failure'.  There is no other way to signal the reason for an authorization failure to the Subscriber, or to communicate further detail. <a href="#app-additional">Appendix C</a> describes an alternative method where more detailed error messages can be provided to the client.  </p>
+<p id="rfc.section.2.3.p.5">In the case of failure, the return code must be 0x08 indicating 'Failure'.  In version 3.1, there is no other way to signal the reason for an authorization failure to the Subscriber, or to communicate further detail.  </p>
 <h1 id="rfc.section.2.4"><a href="#rfc.section.2.4">2.4.</a> Token expiration</h1>
-<p id="rfc.section.2.4.p.1">The broker checks for token expiration whenever a CONNECT, PUBLISH or SUBSCRIBE message is received or sent.  The validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an introspection request with the Authorization server as described in the Section 8.2 of <a href="#I-D.ietf-ace-oauth-authz">the ACE framework</a> <cite title="NONE">[I-D.ietf-ace-oauth-authz]</cite>.  Token expirations leads to disconnecting the associated client. <a href="#app-additional">Appendix C</a> describes an alternative method, where clients are allowed to update tokens, avoiding disconnections.  </p>
+<p id="rfc.section.2.4.p.1">The broker checks for token expiration whenever a CONNECT, PUBLISH or SUBSCRIBE message is received or sent.  The validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an introspection request with the Authorization server as described in the Section 8.2 of <a href="#I-D.ietf-ace-oauth-authz">the ACE framework</a> <cite title="NONE">[I-D.ietf-ace-oauth-authz]</cite>.  Token expirations leads to disconnecting the associated client.  </p>
 <h1 id="rfc.section.2.5"><a href="#rfc.section.2.5">2.5.</a> Handling disconnections</h1>
 <p id="rfc.section.2.5.p.1">According to <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, only Client DISCONNECT messages are allowed. (This is expected to change in the future, enabling Server DISCONNECT messages.) In the case of a Client DISCONNECT, due to the Clean Session flag, the broker deletes all session state but MUST keep the retained messages and send them according to methodology described in <a href="#retained_messages">Section 2.6</a>. The broker MUST continue publishing the retained messages as long as the associated tokens are valid.  </p>
 <p id="rfc.section.2.5.p.2">In case of disconnections due to network errors, or Server disconnection due to a protocol error (which includes the authorization errors), the Will message must be sent if the client supplied a Will in the CONNECT request message (see <a href="#mqtt_connect_flags">Figure 3</a>).  According to the <a href="#MQTT-OASIS-Standard">[MQTT-OASIS-Standard]</a>, if the CONNECT request is accepted, then any WILL message must be stored.  The Will message must be published to the Will topic when the network connection is closed.  </p>
@@ -825,46 +823,11 @@
 <h1 id="rfc.appendix.B"><a href="#rfc.appendix.B">Appendix B.</a> <a href="#app-authzinfo" id="app-authzinfo">The `authorization information' endpoint</a></h1>
 <p id="rfc.section.B.p.1">The main document described a method where the access token is transported inside the MQTT CONNECT message.  In this section, we describe an alternative method to transport the access token.  </p>
 <p id="rfc.section.B.p.2">The method consists of the MQTT broker providing a public "authz-info" topic. A client using this method MUST first connect to the broker, and publish the access token using the "authz-info" topic. The broker must verify the validity of the token (i.e., through local validation or introspection).  After publishing the token, the client disconnects from the broker and is expected to try reconnecting over TLS.  </p>
-<p id="rfc.section.B.p.3">After the client published to the "authz-info" topic, it is not possible for the broker to communicate the result of the verification. The response to a PUBLISH message may be a PUBACK or PUBREC, and these messages indicate successful reception of the PUBLISH message and cannot communicate authorization errors.  However, the token failure will affect the TLS handshake, which may be used to prompt the client to obtain a valid token.  In <a href="#app-additional">Appendix C</a>, an alternative method for error handling is discussed.  </p>
-<h1 id="rfc.appendix.C"><a href="#rfc.appendix.C">Appendix C.</a> <a href="#app-additional" id="app-additional">Error handling and token updates</a></h1>
-<p id="rfc.section.C.p.1">Section 2.1.3 uses the CONNECT message to transfer the PoP token to the broker. This is simple, with only two states: 'Disconnected' and 'Authorized' (see  <a href="#token_CONNECT_state_machine">Figure 7</a>). However, the result of an authorization error is a server side disconnection without any feedback or error message.  </p>
-<div id="rfc.figure.7"/>
-<div id="token_CONNECT_state_machine"/>
-<pre>
-                             | State
-                             |      0             1
-       Events                | Disconnected   Authorized
-       ----------------------+---------------------------
-       CONNECT success       |      1             -
-       CONNECT failure       |      0             -
-       Authorization expires |      -             0
-       other disconnection   |
-                </pre>
-<p class="figure">Figure 7: Client state machine - simple token transport</p>
-<p id="rfc.section.C.p.2">To enable token updates during the lifetime of a connection, and also to allow the broker to send error messages to a client, this section proposes using a client-specific "authz-info-${ClientId}" topic.  This case requires three states: 'Disconnected', 'Connected' and 'Authorized', shown in <a href="#authzinfo_CONNECT_state_machine">Figure 8</a>.  </p>
-<p id="rfc.section.C.p.3">In the Disconnected state, as before, the client needs to transport the token and attempt to establish a connection. Token transport MAY be done using any of the methods mentioned in this document.  The CONNECT payload SHOULD include a unique client identifier: Although in MQTT a broker may accept 0-byte client identifiers, in this use case the client would not be aware of its client identifier, so would be unable to update its token, or subscribe to the "authz-info-${ClientId}" topic to receive error messages.  </p>
-<p id="rfc.section.C.p.4">If the CONNECT succeeds, then the client moves to the Authorized state.  It SHOULD also subscribe to the topic "authz-info-${ClientId}" to be able to receive authorization errors.  The subscription MUST fail if the topic name does not contain the ClientId established during the CONNECT handshake.  </p>
-<p id="rfc.section.C.p.5">If the token validation fails,the broker MUST publish an authorization error to "authz-info-${ClientId}" and the client moves to the Connected state. In this state, the client MAY publish a new token or it MAY disconnect.  If a new token is published, then the broker MUST verify the token and send an authorization response to "authz-info-${ClientId}" indicating success or failure. In case of success, the client moves to the "Authorized" state. In the case of failure, the client remains in "Connected" state but will not be able to publish or receive message from its subscribed topics due to authorisation problems. It MAY be able to publish/subscribe to public topics.  </p>
-<div id="rfc.figure.8"/>
-<div id="authzinfo_CONNECT_state_machine"/>
-<pre>
-                               | State
-                               |      0            1          2
-     Events                    | Disconnected  Connected  Authorized
-     --------------------------+-------------------------------------
-     CONNECT success           |      2            -          -
-     CONNECT failure           |      0            -          -
-     PUBLISH new token success |      -            2          2
-     PUBLISH new token failure |      -            1          1
-     Authorization expires     |      -            -          1
-     Other disconnection       |      -            0          0
-                </pre>
-<p class="figure">Figure 8: Client state machine - with error handling and token update</p>
-<p id="rfc.section.C.p.6">While this solution allows better authorization error feedback, it is a more complex solution. The broker needs to maintain separate authz-info topics for separate clients.  </p>
+<p id="rfc.section.B.p.3">After the client published to the "authz-info" topic, it is not possible for the broker to communicate the result of the verification. In MQTT v3.1, the response to a PUBLISH message may be a PUBACK or PUBREC, and these messages indicate successful reception of the PUBLISH message and cannot communicate authorization errors.  However, the token failure will affect the TLS handshake, which may be used to prompt the client to obtain a valid token.  </p>
 <h1 id="rfc.acknowledgements">
   <a href="#rfc.acknowledgements">Acknowledgements</a>
 </h1>
-<p id="rfc.section.D.p.1">The authors would like to thank Ludwig Seitz for his input on the authorisation information endpoint, error handling and token updates presented in the appendices.  </p>
+<p id="rfc.section.C.p.1">The authors would like to thank Ludwig Seitz for his input on the authorisation information endpoint, error handling and token updates presented in the appendices.  </p>
 <h1 id="rfc.authors">
   <a href="#rfc.authors">Authors' Addresses</a>
 </h1>

@@ -641,9 +641,6 @@
                         In the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>, the MQTT
                         DISCONNECT messages are only sent from a client to the broker. So, server disconnection
                         needs to take place below the application layer.
-                        <xref target="app-additional"></xref>
-                        describes an alternative method for handling authorization errors, possibly avoiding
-                        disconnections.
                     </t>
                 </section>
                 <section title="PUBLISH messages from the broker to the subscriber clients">
@@ -662,8 +659,6 @@
                         In the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>, the MQTT
                         DISCONNECT messages are only sent from a client to the broker.
                         Therefore, the server disconnection needs to take place below the application layer.
-                        <xref target="app-additional"></xref>
-                        describes an alternative method, where disconnections may be avoided.
                     </t>
                 </section>
             </section>
@@ -706,9 +701,8 @@
                 </t>
                 <t>
                     In the case of failure, the return code must be 0x08 indicating 'Failure'.
-                    There is no other way to signal the reason for an authorization failure to the Subscriber, or to
-                    communicate further detail. <xref target="app-additional"></xref> describes an alternative method
-                    where more detailed error messages can be provided to the client.
+                    In version 3.1, there is no other way to signal the reason for an authorization failure to the Subscriber, or to
+                    communicate further detail.
                 </t>
             </section>
             <section title="Token expiration">
@@ -718,9 +712,7 @@
                     The validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an
                     introspection request with the Authorization server as described in the Section 8.2 of <xref
                         target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
-                    Token expirations leads to disconnecting the associated client. <xref
-                        target="app-additional"></xref> describes an alternative method, where clients are allowed to
-                    update tokens, avoiding disconnections.
+                    Token expirations leads to disconnecting the associated client. 
                 </t>
             </section>
             <section title="Handling disconnections">
@@ -912,88 +904,14 @@
             </t>
             <t>After the client published to the "authz-info" topic, it is not possible for the broker to communicate
                 the result of the
-                verification. The response to a PUBLISH message may be a PUBACK or PUBREC, and these messages indicate
+                verification. In MQTT v3.1, the response to a PUBLISH message may be a PUBACK or PUBREC, and these messages indicate
                 successful reception
                 of the PUBLISH message and cannot communicate authorization errors.
                 However, the token failure will affect the TLS handshake, which may be used to prompt the client to
                 obtain a valid token.
-                In <xref target="app-additional"></xref>, an alternative method for error handling is discussed.
             </t>
         </section>
 
-        <section anchor="app-additional" title="Error handling and token updates">
-            <t>Section 2.1.3 uses the CONNECT message to transfer the PoP token to the broker. This is simple,
-                with only two states: 'Disconnected' and 'Authorized' (see  <xref
-                        target="token_CONNECT_state_machine"></xref>). However, the result of an authorization error
-                is a server side disconnection without any feedback or error message.
-            </t>
-            <figure align="center" anchor="token_CONNECT_state_machine"
-                    title="Client state machine - simple token transport">
-                <artwork align="left"><![CDATA[
-                             | State
-                             |      0             1
-       Events                | Disconnected   Authorized
-       ----------------------+---------------------------
-       CONNECT success       |      1             -
-       CONNECT failure       |      0             -
-       Authorization expires |      -             0
-       other disconnection   |
-                ]]></artwork>
-            </figure>
-
-            <t>To enable token updates during the lifetime of a connection, and also to allow the broker to send
-                error messages to a
-                client, this section proposes using a client-specific "authz-info-${ClientId}" topic.
-                This case requires three states: 'Disconnected', 'Connected' and 'Authorized', shown in
-                <xref target="authzinfo_CONNECT_state_machine"></xref>.
-            </t>
-
-            <t>
-                In the Disconnected state, as before, the client needs to transport the token and attempt to establish
-                a connection. Token transport MAY be done using any of the methods mentioned in this document.
-                The CONNECT payload SHOULD include a unique client identifier: Although in MQTT a broker may
-                accept 0-byte client identifiers, in this use case the client would not be aware of its client identifier, so
-                would be unable to update its token, or subscribe to the "authz-info-${ClientId}" topic to receive
-                error messages.
-            </t>
-            <t>
-                If the CONNECT succeeds, then the client moves to the Authorized state.
-                It SHOULD also subscribe to the topic "authz-info-${ClientId}" to be able to receive authorization errors.
-                The subscription MUST fail if the topic name does not contain the ClientId established during the
-                CONNECT handshake.
-            </t>
-            <t>
-                If the token validation fails,the broker MUST publish an authorization error to "authz-info-${ClientId}"
-                and the client moves to the Connected state. In this state, the client MAY publish a new token or it MAY
-                disconnect.
-                If a new token is published, then the broker MUST verify the token and send an authorization response to
-                "authz-info-${ClientId}"
-                indicating success or failure. In case of success, the client moves to the "Authorized" state. In the
-                case of failure, the
-                client remains in "Connected" state but will not be able to publish or receive message from its subscribed topics
-                due to authorisation problems. It MAY be able to publish/subscribe to public topics.
-            </t>
-            <figure align="center" anchor="authzinfo_CONNECT_state_machine"
-                    title="Client state machine - with error handling and token update">
-                <artwork align="left"><![CDATA[
-                               | State
-                               |      0            1          2
-     Events                    | Disconnected  Connected  Authorized
-     --------------------------+-------------------------------------
-     CONNECT success           |      2            -          -
-     CONNECT failure           |      0            -          -
-     PUBLISH new token success |      -            2          2
-     PUBLISH new token failure |      -            1          1
-     Authorization expires     |      -            -          1
-     Other disconnection       |      -            0          0
-                ]]></artwork>
-            </figure>
-
-            <t>
-                While this solution allows better authorization error feedback, it is a more complex
-                solution. The broker needs to maintain separate authz-info topics for separate clients.
-            </t>
-        </section>
 
  <!-- Change Log
 
