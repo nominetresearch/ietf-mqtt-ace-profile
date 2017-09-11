@@ -310,9 +310,12 @@
 
         </section>
 
-        <section title="Protocol Interactions" anchor="basic-protocol">
-            <t>This document describes the following exchanges between publisher and subscriber clients, the broker, and
-                the authorization server.
+        <section title="Basic Protocol Interactions" anchor="basic-protocol">
+          <t> This section describes the following exchanges between publisher and subscriber clients, the broker, and
+	  the authorization server according to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
+	  These exchanges are compatible also with the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
+	  Draft</xref>. In addition, in Section [PLACEHOLDER], the document describes how these exchanges may be improved with the
+	  MQTT v5.  
             </t>
             <t>
                 <list style="symbols">
@@ -377,9 +380,9 @@
 
                 <section title="Client Authorization Server (CAS) and Authorization Server (AS) Interaction">
                     <t>
-                        The first step in the protocol flow (A) is token acquisition by the client authorization server
+                        The first step in the protocol flow (Figure 1, (A)) is token acquisition by the client authorization server
                         (CAS) from the AS.
-                        If a client has enough resources and can support HTTPS, or optionally the AS supports MQTT,
+                        If a client has enough resources and can support HTTPS, or optionally the AS supports MQTTS,
                         these steps can instead be carried out
                         by a client directly.
                     </t>
@@ -393,12 +396,13 @@
                         If the access token request has been successfully verified by the AS and the client is
                         authorized to obtain a token for the
                         indicated audience (i.e., broker) and scopes (i.e., publish/subscribe to the requested topics),
-                        the AS issues an access token (B). 
+                        the AS issues an access token (Figure 1 (B)). 
                         The response includes the parameters described in Section 6.2 of <xref
                             target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.  
-			This includes a token, which is assumed to be PoP by default. Hence,  a 'cnf' parameter with a symmetric or asymmetric
-                        PoP key is included. The token may be a reference, or a CBOR or JWT web token. Note that the 'cnf' parameter in the web tokens
-                        are to be consumed by the resource served and not the client.  
+			This includes a token, which is assumed to be PoP by default. Hence,  a 'cnf' parameter with a
+			symmetric or asymmetric PoP key is included. The token may be a reference, or a CBOR or JWT web token.
+			Note that the 'cnf' parameter in the web tokens
+                        are to be consumed by the resource server and not the client.  
                     </t>
                     <t>
                         In the case of an error, the AS returns error responses for HTTP-based interactions as ASCII
@@ -406,22 +410,24 @@
                     </t>
                 </section>
                 <section title="Client connection request to the broker">
-                    <t>
-                        Having received the token, the client can use it to request an MQTT connection to the broker
-                        over a TLS session with server authentication.
-                        This document describes the client transporting the token to the broker (RS) via the CONNECT
+                  <t>
+		        Client on-boarding (Figure 1 (C)) is out of scope of this document.
+                        Once onboarded with the token, the client can use it to request an MQTT connection to the broker
+                        over a TLS session with server authentication (Figure 1 (D)). 
+                        This section describes the client transporting the token to the broker (RS) via the CONNECT
                         control message after the TLS handshake. This is similar to an earlier proposal by Fremantle et 
-                        al. <xref target="fremantle14"></xref>. 
+                        al. <xref target="fremantle14"></xref>. A complementary method can be implemented with
+		        <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref> and
+			is described in Section [PLACEHOLDER].
                         Alternatively, the token may be used for the TLS session establishment as described in
                         the <xref target="I-D.gerdes-ace-dtls-authorize">DTLS profile for ACE</xref>. In this case, both
                         the TLS PSK and RPK handshakes MAY be supported.
                         This may additionally require that the client transports the token to the broker before the
                         connection establishment.
-                        To this end, the broker MAY allow clients to publish to "authz-info" topic unauthorized, and in
-                        this case,
-                        "authz-info" topic SHOULD be publish only (i.e., the clients are not allowed to subscribe to
-                        it).
-                        Implementation of the public "authz-info" topic is discussed in
+                        To this end, the broker MAY support /authz-info endpoint via the "authz-info" topic.
+			Then, to transport the token, clients publish to "authz-info" topic unauthorized.  The topic
+			"authz-info" MUST be publish only for clients (i.e., the clients are not allowed to subscribe to it). 
+                        This option is described in more detail in 
                         <xref target="app-authzinfo"></xref>.
                     </t>
 
@@ -475,11 +481,9 @@
                         The client may set the Will flag as desired (marked as 'X' in <xref
                             target="mqtt_connect_flags"></xref>).
                         If the Will flag is set to 1 and the broker accepts the connection request, the broker must
-                        store the Will message, and publish it
-                        when the network connection is closed.
-                        The Will QoS specifies the QoS level of the Will message, and may be set to 0x00, 0x01 or 0x02.
-                        The Will retain flag may be set as desired. If it is set to 1, the Will message will be delivered
-                        to all future subscribers whose subscriptions match the Will topic. <xref target="retained_messages"></xref>
+                        store the Will message, and  publish it when the network connection is closed according to Will QoS and
+			Will retain parameters, and MQTT Will management rules.
+                         <xref target="retained_messages"></xref>
                         explains how the broker deals with the RETAINed messages in further detail.
                     </t>
                     <t>
@@ -489,16 +493,19 @@
                     <t>
                         The CONNECT message defaults to ACE for authentication and authorisation.  
 			The demonstration of the possession of the key bound to the access token is intentionally not specified in 
-			<xref target="RFC7800">RFC 7800</xref>. In this document, the client MUST apply  the key either to the token or the entire request 
+			<xref target="RFC7800">RFC 7800</xref>. In this document, the client MUST apply  the key either to the
+			token or the entire request 
 			by computing a keyed message digest
-   			(for symmetric key) or a digital signature (for asymmetric key). [TODO] describes request-response protocol, which enables 
+   			(for symmetric key) or a digital signature (for asymmetric key). In addition, Section [Placeholder]
+			describes request-response protocol, which s possible under MQTT v5 and enables 
 			the RS to send a challenge to the client.  	
 		   </t>
 		   <t>  For the basic operation described in this section, the Username field MUST be set to the token.	
 			The Password field MUST be set to this keyed message digest (MAC) or signature.      
-                        (The Username field is a UTF-8 encoded string, which is prefixed with a two-byte length field, and can have any length 
+                        (The Username field is a UTF-8 encoded string, which is prefixed with a two-byte length field,
+			and can have any length 
                          in the range of 0 and 65535. Similarly, the password field contains 0 to 65535 bytes of binary data, 
-			 prefixed by a two-byte length field.
+			 prefixed by a two-byte length field.)
                     </t>
 
                 </section>
@@ -530,12 +537,11 @@
                     </t>
                     <t>
                         The broker uses the scope field in the token (or in the introspection result) to determine the publish and
-                        subscribe permissions for the client.
-                        Scope strings MAY follow an application specific convention e.g., 'publish_topic1' or
-                        'subscribe_topic2'.
-                        If the Will flag is set, then the broker MUST check that the token allows the publication of the
+                        subscribe permissions for the client. If the Will flag is set,
+			then the broker MUST check that the token allows the publication of the
                         Will message too.
-                    </t>
+		    </t>	
+			
                     <t>
                         The broker MAY cache the introspection result, because it will need to decide whether to accept
                         subsequent PUBLISH and SUBSCRIBE messages, and
@@ -543,6 +549,15 @@
                         If the introspection result is not cached, then the RS needs to introspect the saved token for
                         each request.
                     </t>
+		    <t>
+		      Note: Scope strings MAY follow an application specific convention. One option is to encode in the
+		      scope string the permission and the topics it applies to e.g., 'publish_topic1' or 'subscribe_topic2'.
+		      A second option is to simply use the keywords 'publish' or 'subscribe' as scope strings and use the 'aud'
+		      field to define the topic. Another option is to use topic names as scope strings , and use the 'aud' field
+		      to define the 'publish' or 'subscribe' permission applying to these scopes.
+		      The choice is left to the implementer and depends on how the following trade-off is expected to be handled:
+		      token simplicity versus the number of tokens the broker is expected to handle per client.
+		    </t>  
                 </section>
                 <section title="The broker's response to client connection request">
                     <t>

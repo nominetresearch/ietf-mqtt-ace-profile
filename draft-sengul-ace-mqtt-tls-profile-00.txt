@@ -5,7 +5,7 @@
 ACE Working Group                                              C. Sengul
 Internet-Draft                                                  A. Kirby
 Intended status: Standards Track                                 Nominet
-Expires: March 11, 2018                                September 7, 2017
+Expires: March 15, 2018                               September 11, 2017
 
 
                         MQTT-TLS profile of ACE
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 11, 2018.
+   This Internet-Draft will expire on March 15, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Sengul & Kirby           Expires March 11, 2018                 [Page 1]
+Sengul & Kirby           Expires March 15, 2018                 [Page 1]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -67,32 +67,32 @@ Table of Contents
      1.1.  Requirements Language . . . . . . . . . . . . . . . . . .   4
      1.2.  ACE-Related Terminology . . . . . . . . . . . . . . . . .   4
      1.3.  MQTT-Related Terminology  . . . . . . . . . . . . . . . .   4
-   2.  Protocol Interactions . . . . . . . . . . . . . . . . . . . .   5
+   2.  Basic Protocol Interactions . . . . . . . . . . . . . . . . .   5
      2.1.  Authorizing Connection Establishment  . . . . . . . . . .   6
        2.1.1.  Client Authorization Server (CAS) and Authorization
                Server (AS) Interaction . . . . . . . . . . . . . . .   7
-       2.1.2.  Client connection request to the broker . . . . . . .   7
-       2.1.3.  Token validation  . . . . . . . . . . . . . . . . . .   9
-       2.1.4.  The broker's response to client connection request  .  10
-     2.2.  Authorizing PUBLISH messages  . . . . . . . . . . . . . .  11
+       2.1.2.  Client connection request to the broker . . . . . . .   8
+       2.1.3.  Token validation  . . . . . . . . . . . . . . . . . .  10
+       2.1.4.  The broker's response to client connection request  .  11
+     2.2.  Authorizing PUBLISH messages  . . . . . . . . . . . . . .  12
        2.2.1.  PUBLISH messages from the publisher client to the
-               broker  . . . . . . . . . . . . . . . . . . . . . . .  11
+               broker  . . . . . . . . . . . . . . . . . . . . . . .  12
        2.2.2.  PUBLISH messages from the broker to the subscriber
-               clients . . . . . . . . . . . . . . . . . . . . . . .  12
-     2.3.  Authorizing SUBSCRIBE messages  . . . . . . . . . . . . .  12
-     2.4.  Token expiration  . . . . . . . . . . . . . . . . . . . .  13
-     2.5.  Handling disconnections . . . . . . . . . . . . . . . . .  13
-     2.6.  Handling retained messages  . . . . . . . . . . . . . . .  14
-   3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     6.2.  Informative References  . . . . . . . . . . . . . . . . .  15
-   Appendix A.  Checklist for profile requirements . . . . . . . . .  16
-   Appendix B.  The `authorization information' endpoint . . . . . .  17
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+               clients . . . . . . . . . . . . . . . . . . . . . . .  13
+     2.3.  Authorizing SUBSCRIBE messages  . . . . . . . . . . . . .  13
+     2.4.  Token expiration  . . . . . . . . . . . . . . . . . . . .  14
+     2.5.  Handling disconnections . . . . . . . . . . . . . . . . .  15
+     2.6.  Handling retained messages  . . . . . . . . . . . . . . .  15
+   3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  16
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  16
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .  16
+   Appendix A.  Checklist for profile requirements . . . . . . . . .  17
+   Appendix B.  The `authorization information' endpoint . . . . . .  18
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Sengul & Kirby           Expires March 11, 2018                 [Page 2]
+Sengul & Kirby           Expires March 15, 2018                 [Page 2]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -165,7 +165,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 11, 2018                 [Page 3]
+Sengul & Kirby           Expires March 15, 2018                 [Page 3]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -221,7 +221,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 11, 2018                 [Page 4]
+Sengul & Kirby           Expires March 15, 2018                 [Page 4]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -261,26 +261,31 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    SUBACK
            Subscribe acknowledgment.
 
-2.  Protocol Interactions
+2.  Basic Protocol Interactions
 
-   This document describes the following exchanges between publisher and
-   subscriber clients, the broker, and the authorization server.
+   This section describes the following exchanges between publisher and
+   subscriber clients, the broker, and the authorization server
+   according to the MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard].
+   These exchanges are compatible also with the new MQTT v5 - OASIS
+   Specification Draft [MQTT-OASIS-Standard-v5].  In addition, in
+   Section [PLACEHOLDER], the document describes how these exchanges may
+   be improved with the MQTT v5.
 
    o  Authorizing connection establishment between the clients and the
       broker
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                 [Page 5]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
 
    o  Authorizing publish messages from the publishers to the broker,
       and from the broker to the subscribers
 
    o  Authorizing subscribe messages from the subscribers to the broker
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                 [Page 5]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    Message topics are treated as resources.  The publisher and
    subscriber clients are assumed to have identified the topics of
@@ -302,6 +307,36 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    Figure 1 shows the basic protocol flow during connection
    establishment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                 [Page 6]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
 
                                +----------------+
       +---(A) Token request----| Client         |
@@ -330,21 +365,14 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
                     Figure 1: Connection establishment
 
-
-
-
-Sengul & Kirby           Expires March 11, 2018                 [Page 6]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
-
 2.1.1.  Client Authorization Server (CAS) and Authorization Server (AS)
         Interaction
 
-   The first step in the protocol flow (A) is token acquisition by the
-   client authorization server (CAS) from the AS.  If a client has
-   enough resources and can support HTTPS, or optionally the AS supports
-   MQTT, these steps can instead be carried out by a client directly.
+   The first step in the protocol flow (Figure 1, (A)) is token
+   acquisition by the client authorization server (CAS) from the AS.  If
+   a client has enough resources and can support HTTPS, or optionally
+   the AS supports MQTTS, these steps can instead be carried out by a
+   client directly.
 
    When requesting an access token from the AS, the CAS MAY include
    parameters in its request as defined in Section 6.1 of the ACE
@@ -354,13 +382,22 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    If the access token request has been successfully verified by the AS
    and the client is authorized to obtain a token for the indicated
    audience (i.e., broker) and scopes (i.e., publish/subscribe to the
-   requested topics), the AS issues an access token (B).  The response
-   includes the parameters described in Section 6.2 of the ACE framework
-   [I-D.ietf-ace-oauth-authz].  This includes a token, which is assumed
-   to be PoP by default.  Hence, a 'cnf' parameter with a symmetric or
-   asymmetric PoP key is included.  The token may be a reference, or a
-   CBOR or JWT web token.  Note that the 'cnf' parameter in the web
-   tokens are to be consumed by the resource served and not the client.
+   requested topics), the AS issues an access token (Figure 1 (B)).  The
+   response includes the parameters described in Section 6.2 of the ACE
+   framework [I-D.ietf-ace-oauth-authz].  This includes a token, which
+   is assumed to be PoP by default.  Hence, a 'cnf' parameter with a
+
+
+
+Sengul & Kirby           Expires March 15, 2018                 [Page 7]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
+   symmetric or asymmetric PoP key is included.  The token may be a
+   reference, or a CBOR or JWT web token.  Note that the 'cnf' parameter
+   in the web tokens are to be consumed by the resource server and not
+   the client.
 
    In the case of an error, the AS returns error responses for HTTP-
    based interactions as ASCII codes in JSON content, as defined in
@@ -368,35 +405,50 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 2.1.2.  Client connection request to the broker
 
-   Having received the token, the client can use it to request an MQTT
-   connection to the broker over a TLS session with server
-   authentication.  This document describes the client transporting the
-   token to the broker (RS) via the CONNECT control message after the
-   TLS handshake.  This is similar to an earlier proposal by Fremantle
-   et al. [fremantle14].  Alternatively, the token may be used for the
-   TLS session establishment as described in the DTLS profile for ACE
+   Client on-boarding (Figure 1 (C)) is out of scope of this document.
+   Once onboarded with the token, the client can use it to request an
+   MQTT connection to the broker over a TLS session with server
+   authentication (Figure 1 (D)).  This section describes the client
+   transporting the token to the broker (RS) via the CONNECT control
+   message after the TLS handshake.  This is similar to an earlier
+   proposal by Fremantle et al. [fremantle14].  A complementary method
+   can be implemented with MQTT v5 - OASIS Specification Draft
+   [MQTT-OASIS-Standard-v5] and is described in Section [PLACEHOLDER].
+   Alternatively, the token may be used for the TLS session
+   establishment as described in the DTLS profile for ACE
    [I-D.gerdes-ace-dtls-authorize].  In this case, both the TLS PSK and
    RPK handshakes MAY be supported.  This may additionally require that
    the client transports the token to the broker before the connection
-   establishment.  To this end, the broker MAY allow clients to publish
-   to "authz-info" topic unauthorized, and in this case, "authz-info"
-   topic SHOULD be publish only (i.e., the clients are not allowed to
-   subscribe to it).  Implementation of the public "authz-info" topic is
-   discussed in Appendix B.
-
-
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                 [Page 7]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
+   establishment.  To this end, the broker MAY support /authz-info
+   endpoint via the "authz-info" topic.  Then, to transport the token,
+   clients publish to "authz-info" topic unauthorized.  The topic
+   "authz-info" MUST be publish only for clients (i.e., the clients are
+   not allowed to subscribe to it).  This option is described in more
+   detail in Appendix B.
 
    When the client wishes to connect to the broker, it uses the CONNECT
    message of MQTT.  Figure 2 shows the structure of the MQTT CONNECT
    control message.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                 [Page 8]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
 
           0            8            16            24            32
           +------------------------------------------------------+
@@ -439,21 +491,20 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    protocol error.  The client may set the Will flag as desired (marked
    as 'X' in Figure 3).  If the Will flag is set to 1 and the broker
    accepts the connection request, the broker must store the Will
-   message, and publish it when the network connection is closed.  The
-   Will QoS specifies the QoS level of the Will message, and may be set
-   to 0x00, 0x01 or 0x02.  The Will retain flag may be set as desired.
+   message, and publish it when the network connection is closed
+   according to Will QoS and Will retain parameters, and MQTT Will
+   management rules.  Section 2.6 explains how the broker deals with the
+   RETAINed messages in further detail.
 
 
 
-Sengul & Kirby           Expires March 11, 2018                 [Page 8]
+
+
+
+Sengul & Kirby           Expires March 15, 2018                 [Page 9]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
-
-   If it is set to 1, the Will message will be delivered to all future
-   subscribers whose subscriptions match the Will topic.  Section 2.6
-   explains how the broker deals with the RETAINed messages in further
-   detail.
 
    Finally, Username and Password flags MUST be set to 1 to ensure that
    the Payload of the CONNECT message includes both Username and
@@ -464,9 +515,10 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    to the access token is intentionally not specified in RFC 7800
    [RFC7800].  In this document, the client MUST apply the key either to
    the token or the entire request by computing a keyed message digest
-   (for symmetric key) or a digital signature (for asymmetric key).
-   [TODO] describes request-response protocol, which enables the RS to
-   send a challenge to the client.
+   (for symmetric key) or a digital signature (for asymmetric key).  In
+   addition, Section [Placeholder] describes request-response protocol,
+   which s possible under MQTT v5 and enables the RS to send a challenge
+   to the client.
 
    For the basic operation described in this section, the Username field
    MUST be set to the token.  The Password field MUST be set to this
@@ -474,7 +526,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    UTF-8 encoded string, which is prefixed with a two-byte length field,
    and can have any length in the range of 0 and 65535.  Similarly, the
    password field contains 0 to 65535 bytes of binary data, prefixed by
-   a two-byte length field.
+   a two-byte length field.)
 
 2.1.3.  Token validation
 
@@ -498,24 +550,22 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    contained in the 'cnf' claim of the access token, and may use either
    public or shared key approaches.  The client uses the signature or
    the MAC in the password field to prove the possession of the key.
-
-
-
-Sengul & Kirby           Expires March 11, 2018                 [Page 9]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
-
    Depending on the chosen implementation, the resource server validates
    the signature or the MAC over the token or the contents of the
    packet, authenticating the client.
 
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 10]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    The broker uses the scope field in the token (or in the introspection
    result) to determine the publish and subscribe permissions for the
-   client.  Scope strings MAY follow an application specific convention
-   e.g., 'publish_topic1' or 'subscribe_topic2'.  If the Will flag is
-   set, then the broker MUST check that the token allows the publication
-   of the Will message too.
+   client.  If the Will flag is set, then the broker MUST check that the
+   token allows the publication of the Will message too.
 
    The broker MAY cache the introspection result, because it will need
    to decide whether to accept subsequent PUBLISH and SUBSCRIBE
@@ -523,6 +573,18 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    set-up, may not contain tokens.  If the introspection result is not
    cached, then the RS needs to introspect the saved token for each
    request.
+
+   Note: Scope strings MAY follow an application specific convention.
+   One option is to encode in the scope string the permission and the
+   topics it applies to e.g., 'publish_topic1' or 'subscribe_topic2'.  A
+   second option is to simply use the keywords 'publish' or 'subscribe'
+   as scope strings and use the 'aud' field to define the topic.
+   Another option is to use topic names as scope strings , and use the
+   'aud' field to define the 'publish' or 'subscribe' permission
+   applying to these scopes.  The choice is left to the implementer and
+   depends on how the following trade-off is expected to be handled:
+   token simplicity versus the number of tokens the broker is expected
+   to handle per client.
 
 2.1.4.  The broker's response to client connection request
 
@@ -548,19 +610,15 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    not have a payload.  Therefore, AS discovery is assumed to have taken
    place out-of-band.
 
-   If the RS accepts the connection, it MUST store the token.
 
 
 
-
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                [Page 10]
+Sengul & Kirby           Expires March 15, 2018                [Page 11]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+   If the RS accepts the connection, it MUST store the token.
 
 2.2.  Authorizing PUBLISH messages
 
@@ -607,16 +665,17 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    authorization server.  The token received in the PUBLISH message MAY
    be different than the one stored after connection handshake.  On
    receiving a new token, the RS discards any previously stored token
-   for the client and MUST store the new token as not all PUBLISH
-   messages may carry tokens.
 
 
 
 
-Sengul & Kirby           Expires March 11, 2018                [Page 11]
+Sengul & Kirby           Expires March 15, 2018                [Page 12]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+   for the client and MUST store the new token as not all PUBLISH
+   messages may carry tokens.
 
    If the application message does not contain a token, the broker MUST
    use the type of message (i.e., PUBLISH) and the topic name in the
@@ -663,16 +722,17 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    In MQTT, a SUBSCRIBE message is sent from a client to the broker, to
    create one or more subscriptions to one or more topics.
 
-   Figure 6 shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE
-   message may contain multiple topic filters.  The topic filters may
-   include wildcard characters.
 
 
 
-Sengul & Kirby           Expires March 11, 2018                [Page 12]
+Sengul & Kirby           Expires March 15, 2018                [Page 13]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+   Figure 6 shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE
+   message may contain multiple topic filters.  The topic filters may
+   include wildcard characters.
 
           0            8            16            24            32
           +------------------------------------------------------+
@@ -714,6 +774,18 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    the Section 8.2 of the ACE framework [I-D.ietf-ace-oauth-authz].
    Token expirations leads to disconnecting the associated client.
 
+
+
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 14]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
 2.5.  Handling disconnections
 
    According to MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], only
@@ -722,14 +794,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    a Client DISCONNECT, due to the Clean Session flag, the broker
    deletes all session state but MUST keep the retained messages and
    send them according to methodology described in Section 2.6.  The
-
-
-
-Sengul & Kirby           Expires March 11, 2018                [Page 13]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
-
    broker MUST continue publishing the retained messages as long as the
    associated tokens are valid.
 
@@ -768,6 +832,16 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
    This memo includes no request to IANA.
 
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 15]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
 4.  Security Considerations
 
    TBD.
@@ -775,16 +849,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 5.  Privacy Considerations
 
    TBD.
-
-
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                [Page 14]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
 6.  References
 
@@ -821,6 +885,19 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 6.2.  Informative References
 
+
+
+
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 16]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    [fremantle14]
               Fremantle, P., Aziz, B., Kopecky, J., and P. Scott,
               "Federated Identity and Access Management for the Internet
@@ -833,14 +910,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
               architecture for authorization in constrained
               environments", draft-ietf-ace-actors-05 (work in
               progress), March 2017.
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                [Page 15]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
@@ -877,6 +946,14 @@ Appendix A.  Checklist for profile requirements
 
    o  Unique profile identifier: mqtt_tls
 
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 17]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    o  Token introspection: RS uses HTTPS /introspect interface of AS.
 
    o  Token request: CAS uses HTTPS /token interface of AS.
@@ -886,17 +963,6 @@ Appendix A.  Checklist for profile requirements
 
    o  Token transport: In MQTT CONNECT message or using the method
       described in Appendix B.
-
-
-
-
-
-
-
-Sengul & Kirby           Expires March 11, 2018                [Page 16]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
 Appendix B.  The `authorization information' endpoint
 
@@ -937,6 +1003,13 @@ Authors' Addresses
    Email: Cigdem.Sengul@nominet.uk
 
 
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 18]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    Anthony Kirby
    Nominet
    Minerva House, Edmund Halley Road
@@ -949,4 +1022,43 @@ Authors' Addresses
 
 
 
-Sengul & Kirby           Expires March 11, 2018                [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sengul & Kirby           Expires March 15, 2018                [Page 19]
