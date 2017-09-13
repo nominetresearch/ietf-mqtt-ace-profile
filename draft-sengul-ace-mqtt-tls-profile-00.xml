@@ -402,7 +402,9 @@
 			This includes a token, which is assumed to be PoP by default. Hence,  a 'cnf' parameter with a
 			symmetric or asymmetric PoP key is included. The token may be a reference, or a CBOR or JWT web token.
 			Note that the 'cnf' parameter in the web tokens
-                        are to be consumed by the resource server and not the client.  
+                        are to be consumed by the resource server and not the client.  For more information on Proof of Possession semantics in JWTs
+			see <xref target="RFC7800">RFC 7800</xref> and for CWTs, 
+			see <xref target="I-D.ietf-ace-cwt-proof-of-possession">Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs)</xref>. 
                     </t>
                     <t>
                         In the case of an error, the AS returns error responses for HTTP-based interactions as ASCII
@@ -496,8 +498,9 @@
 			<xref target="RFC7800">RFC 7800</xref>. In this document, the client MUST apply  the key either to the
 			token or the entire request 
 			by computing a keyed message digest
-   			(for symmetric key) or a digital signature (for asymmetric key). In addition, Section [Placeholder]
-			describes request-response protocol, which s possible under MQTT v5 and enables 
+   			(for symmetric key) or a digital signature (for asymmetric key).
+			In addition, Section [Placeholder]
+			describes request-response protocol, which is possible under MQTT v5 and enables 
 			the RS to send a challenge to the client.  	
 		   </t>
 		   <t>  For the basic operation described in this section, the Username field MUST be set to the token.	
@@ -854,6 +857,7 @@
             <?rfc include="reference.I-D.ietf-ace-oauth-authz.xml"?>
 
             <?rfc include="reference.I-D.gerdes-ace-dtls-authorize.xml"?>
+
         </references>
 
         <references title="Informative References">
@@ -861,6 +865,7 @@
             <!-- A reference written by by an organization not a person. -->
 
             <?rfc include="reference.I-D.ietf-ace-actors.xml"?>
+	    <?rfc include="reference.I-D.ietf-ace-cwt-proof-of-possession.xml"?>
             &RFC4949;
             &RFC6749;
 	    &RFC7800;

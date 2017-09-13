@@ -5,7 +5,7 @@
 ACE Working Group                                              C. Sengul
 Internet-Draft                                                  A. Kirby
 Intended status: Standards Track                                 Nominet
-Expires: March 15, 2018                               September 11, 2017
+Expires: March 17, 2018                               September 13, 2017
 
 
                         MQTT-TLS profile of ACE
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 15, 2018.
+   This Internet-Draft will expire on March 17, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 1]
+Sengul & Kirby           Expires March 17, 2018                 [Page 1]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 2]
+Sengul & Kirby           Expires March 17, 2018                 [Page 2]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -165,7 +165,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 3]
+Sengul & Kirby           Expires March 17, 2018                 [Page 3]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -221,7 +221,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 4]
+Sengul & Kirby           Expires March 17, 2018                 [Page 4]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -277,7 +277,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 5]
+Sengul & Kirby           Expires March 17, 2018                 [Page 5]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -333,7 +333,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 6]
+Sengul & Kirby           Expires March 17, 2018                 [Page 6]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -389,7 +389,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 7]
+Sengul & Kirby           Expires March 17, 2018                 [Page 7]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -397,7 +397,10 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    symmetric or asymmetric PoP key is included.  The token may be a
    reference, or a CBOR or JWT web token.  Note that the 'cnf' parameter
    in the web tokens are to be consumed by the resource server and not
-   the client.
+   the client.  For more information on Proof of Possession semantics in
+   JWTs see RFC 7800 [RFC7800] and for CWTs, see Proof-of-Possession Key
+   Semantics for CBOR Web Tokens (CWTs)
+   [I-D.ietf-ace-cwt-proof-of-possession].
 
    In the case of an error, the AS returns error responses for HTTP-
    based interactions as ASCII codes in JSON content, as defined in
@@ -442,10 +445,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-
-
-
-Sengul & Kirby           Expires March 15, 2018                 [Page 8]
+Sengul & Kirby           Expires March 17, 2018                 [Page 8]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -501,7 +501,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                 [Page 9]
+Sengul & Kirby           Expires March 17, 2018                 [Page 9]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -517,8 +517,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    the token or the entire request by computing a keyed message digest
    (for symmetric key) or a digital signature (for asymmetric key).  In
    addition, Section [Placeholder] describes request-response protocol,
-   which s possible under MQTT v5 and enables the RS to send a challenge
-   to the client.
+   which is possible under MQTT v5 and enables the RS to send a
+   challenge to the client.
 
    For the basic operation described in this section, the Username field
    MUST be set to the token.  The Password field MUST be set to this
@@ -557,7 +557,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 10]
+Sengul & Kirby           Expires March 17, 2018                [Page 10]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -613,7 +613,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 11]
+Sengul & Kirby           Expires March 17, 2018                [Page 11]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -669,7 +669,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 12]
+Sengul & Kirby           Expires March 17, 2018                [Page 12]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -725,7 +725,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 13]
+Sengul & Kirby           Expires March 17, 2018                [Page 13]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -781,7 +781,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 14]
+Sengul & Kirby           Expires March 17, 2018                [Page 14]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -837,7 +837,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 15]
+Sengul & Kirby           Expires March 17, 2018                [Page 15]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -893,7 +893,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 15, 2018                [Page 16]
+Sengul & Kirby           Expires March 17, 2018                [Page 16]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -910,6 +910,12 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
               architecture for authorization in constrained
               environments", draft-ietf-ace-actors-05 (work in
               progress), March 2017.
+
+   [I-D.ietf-ace-cwt-proof-of-possession]
+              Jones, M., Seitz, L., Selander, G., Wahlstroem, E.,
+              Erdtman, S., and H. Tschofenig, "Proof-of-Possession Key
+              Semantics for CBOR Web Tokens (CWTs)", draft-ietf-ace-cwt-
+              proof-of-possession-00 (work in progress), September 2017.
 
    [RFC4949]  Shirey, R., "Internet Security Glossary, Version 2",
               FYI 36, RFC 4949, DOI 10.17487/RFC4949, August 2007,
@@ -941,18 +947,17 @@ Appendix A.  Checklist for profile requirements
    o  Content format: For the HTTPS interactions with AS, "application/
       json".  The MQTT payloads may be formatted JSON or CBOR.
 
+
+
+Sengul & Kirby           Expires March 17, 2018                [Page 17]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    o  PoP protocols: Either symmetric or asymmetric keys can be
       supported.
 
    o  Unique profile identifier: mqtt_tls
-
-
-
-
-Sengul & Kirby           Expires March 15, 2018                [Page 17]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    o  Token introspection: RS uses HTTPS /introspect interface of AS.
 
@@ -994,6 +999,17 @@ Acknowledgements
 
 Authors' Addresses
 
+
+
+
+
+
+
+Sengul & Kirby           Expires March 17, 2018                [Page 18]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    Cigdem Sengul
    Nominet
    1 Sekforde Street
@@ -1001,13 +1017,6 @@ Authors' Addresses
    UK
 
    Email: Cigdem.Sengul@nominet.uk
-
-
-
-
-Sengul & Kirby           Expires March 15, 2018                [Page 18]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
    Anthony Kirby
@@ -1052,13 +1061,4 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-
-
-
-
-
-
-
-
-
-Sengul & Kirby           Expires March 15, 2018                [Page 19]
+Sengul & Kirby           Expires March 17, 2018                [Page 19]
