@@ -655,42 +655,45 @@
                     The validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an
                     introspection request with the Authorization server as described in the Section 8.2 of <xref
                         target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
-                    Token expirations leads to disconnecting the associated client. 
+                    In the basic operation, token expirations lead to disconnecting the associated client.
+		    However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
+		    Draft</xref>, better authorisation error handling and reauthorisation is possible.
+		    This is explained in more detail in Section [Placeholder].   
                 </t>
             </section>
             <section title="Handling disconnections">
                 <t>
                     According to <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>, only Client
-                    DISCONNECT messages are allowed. (This is expected to change in the future, enabling Server
-                    DISCONNECT messages.) In the case of a Client DISCONNECT, due to the Clean Session flag, the broker
+                    DISCONNECT messages are allowed.  In the case of a Client DISCONNECT, due to the Clean Session flag, the broker
                     deletes all session state but MUST keep the retained messages and send them according to methodology
                     described in <xref target="retained_messages"></xref>. The broker MUST continue publishing
                     the retained messages as long as the associated tokens are valid.
                 </t>
+		<t>
+		  In <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
+		  Draft</xref>,  server-side DISCONNECT messages are possible, allowing to return 'Not Authorized' return code
+		  to the client.
+		</t>  
                 <t>
                     In case of disconnections due to network errors, or Server disconnection due to a protocol error
                     (which includes the authorization errors), the Will message must be sent if the client supplied
-                    a Will in the CONNECT request message (see <xref target="mqtt_connect_flags"></xref>).
-                    According to the <xref target="MQTT-OASIS-Standard"/>, if the CONNECT request is accepted, then any
-                    WILL message must be stored.
-                    The Will message must be published to the Will topic when the network connection is closed.
+                    a Will in the CONNECT request message.  The token provided in the CONNECT request must cover the Will topic.
+                    The Will message must be published to the Will topic when the network connection is closed regardless of whether the corresponding
+		    token has expired.
                 </t>
             </section>
 	    <section anchor="retained_messages" title="Handling retained messages">
-	       <t> The broker treats retained messages according to the <xref target="MQTT-OASIS-Standard"/>.
-                   By setting a RETAIN flag in a PUBLISH message (or in a CONNECT message for the Will message), 
+	       <t> By setting a RETAIN flag in a PUBLISH message (or in a CONNECT message for the Will message), 
 		   the publisher indicates to the broker that it should store the most
-                   recent message for the associated topic, so the broker can send the message to
-                   any future subscribers. Hence, the new subscribers can receive
+                   recent message for the associated topic.  Hence, the new subscribers can receive
                    the last sent message from the publisher for that particular topic, without waiting for the next PUBLISH message.
 		</t>
 		<t>
-                    According to the <xref target="MQTT-OASIS-Standard"/>, if a publisher client disconnects, 
+                    According to the MQTT standard, if a publisher client disconnects, 
                     the retained messages do not form part of the session
                     state and must not be deleted by the broker (since the Clean session flag set to 1 during the connection 
-		    request, othersession state is deleted). Therefore, the broker MUST continue publishing retained messages 
-		    for as long
-                    as the stored token for the client is valid: This applies to both the PUBLISH and WILL messages.
+		    request, other session state is deleted). Therefore, the broker MUST continue publishing retained messages 
+		    as long as the stored token for the client is valid: This applies to both the PUBLISH and WILL messages.
                     However, if the disconnection is triggered by the broker due to
                    an authorisation error, the broker MUST stop publishing all retained messages from that client.
 	       </t>
@@ -837,22 +840,20 @@
         </section>
 
         <section anchor="app-authzinfo" title="The `authorization information' endpoint">
-            <t>The main document described a method where the access token is transported inside the MQTT CONNECT message.
-                In this section, we describe an alternative method to transport the access token.
+          <t>The main document described a method for transporting tokens inside MQTT CONNECT messages.
+                In this section, we describe an alternative method to transport an access token.
             </t>
             <t>
-                The method consists of the MQTT broker providing a public "authz-info" topic. A client using this method
+                The method consists of the MQTT broker accepting PUBLISH messages to a public "authz-info" topic. A client using this method
                 MUST first
                 connect to the broker, and publish the access token using the "authz-info" topic. The broker
                 must verify the validity of the token (i.e., through local validation or introspection).
                 After publishing the token, the client disconnects from the broker and is expected to try reconnecting over TLS.
             </t>
-            <t>After the client published to the "authz-info" topic, it is not possible for the broker to communicate
+            <t> In MQTT v3.1, after the client published to the "authz-info" topic, it is not possible for the broker to communicate
                 the result of the
-                verification. In MQTT v3.1, the response to a PUBLISH message may be a PUBACK or PUBREC, and these messages indicate
-                successful reception
-                of the PUBLISH message and cannot communicate authorization errors.
-                However, the token failure will affect the TLS handshake, which may be used to prompt the client to
+                verification. In MQTT v5, the broker can return 'Not authorized' error to a PUBLISH request for QoS greater or equal to 1.
+                In any case, any  token authorization failure will affect the TLS handshake, which can prompt the client to
                 obtain a valid token.
             </t>
         </section>
@@ -865,7 +866,7 @@
 	<section anchor="Acknowledgements" title="Acknowledgements" numbered="no" toc="default">
 		<t>
                 The authors would like to thank Ludwig Seitz for his input on the authorisation information endpoint, 
-		error handling and token updates presented in the appendices.
+		 presented in the appendix.
               </t>		
 	</section>
     </back>
