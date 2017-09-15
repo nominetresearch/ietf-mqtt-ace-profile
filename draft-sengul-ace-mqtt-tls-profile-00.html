@@ -408,7 +408,7 @@
 
   <meta name="dct.creator" content="Sengul, C. and A. Kirby" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-sengul-ace-mqtt-tls-profile-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-9-13" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-9-15" />
   <meta name="dct.abstract" content="This document specifies a profile for the ACE (Authentication and Authorization for Constrained Environments) to enable authorization in an MQTT-based publish-subscribe messaging system.  Proof-of-possession keys, bound to OAuth2.0 access tokens, are used to authenticate and authorize publishing and subscribing clients.  The protocol relies on TLS for confidentiality and server authentication.  " />
   <meta name="description" content="This document specifies a profile for the ACE (Authentication and Authorization for Constrained Environments) to enable authorization in an MQTT-based publish-subscribe messaging system.  Proof-of-possession keys, bound to OAuth2.0 access tokens, are used to authenticate and authorize publishing and subscribing clients.  The protocol relies on TLS for confidentiality and server authentication.  " />
 
@@ -432,8 +432,8 @@
   <td class="right">Nominet</td>
 </tr>
 <tr>
-  <td class="left">Expires: March 17, 2018</td>
-  <td class="right">September 13, 2017</td>
+  <td class="left">Expires: March 19, 2018</td>
+  <td class="right">September 15, 2017</td>
 </tr>
 
     	
@@ -453,7 +453,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on March 17, 2018.</p>
+<p>This Internet-Draft will expire on March 19, 2018.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -656,33 +656,16 @@
 <p id="rfc.section.2.1.4.p.4">If the RS accepts the connection, it MUST store the token.  </p>
 <h1 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2.</a> Authorizing PUBLISH messages</h1>
 <h1 id="rfc.section.2.2.1"><a href="#rfc.section.2.2.1">2.2.1.</a> PUBLISH messages from the publisher client to the broker</h1>
-<p id="rfc.section.2.2.1.p.1">On receiving the PUBLISH message, the broker MUST use the type of message (i.e., PUBLISH) and the topic name in the message header to compare against the cached introspection result for the client token (depending on the implementation, different fields of the introspection result may be checked, see Note in <a href="#token_validation">Section 2.1.3</a>.  </p>
+<p id="rfc.section.2.2.1.p.1">On receiving the PUBLISH message, the broker MUST use the type of message (i.e., PUBLISH) and the topic name in the message header to compare against the cached token or its introspection result (depending on the implementation, different fields of the token or the introspection result may be checked, see Note in <a href="#token_validation">Section 2.1.3</a>).  </p>
 <p id="rfc.section.2.2.1.p.2">If the client is allowed to publish to the topic, the RS must publish the message to all valid subscribers to the topic. The broker may also return an acknowledgment message if the QoS level is greater or equal to 1.  </p>
-<p id="rfc.section.2.2.1.p.3">In case of a faiure,  it is not possible to return an error in <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>.  The return of acknowledgement messages only indicate success. In the case of an authorization error, the broker SHOULD disconnect the client. Otherwise, it MUST silently ignore the message. Also, DISCONNECT messages are only sent from a client to the broker. So, server disconnection needs to take place below the application layer. However, in <a href="#MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</a> <cite title="NONE">[MQTT-OASIS-Standard-v5]</cite>, it is possible to indicate failure and provide a reason code. Section [Placeholder] describes in more detail how PUBLISH authorisation errors are handled.  </p>
+<p id="rfc.section.2.2.1.p.3">In case of a faiure,  it is not possible to return an error in <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>.  The return of acknowledgement messages only indicate success. In the case of an authorization error, the broker SHOULD disconnect the client.  Otherwise, it MUST silently ignore the message. Also, DISCONNECT messages are only sent from a client to the broker. So, server disconnection needs to take place below the application layer. However, in <a href="#MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</a> <cite title="NONE">[MQTT-OASIS-Standard-v5]</cite>, it is possible to indicate failure and provide a reason code. Section [Placeholder] describes in more detail how PUBLISH authorisation errors are handled.  </p>
 <h1 id="rfc.section.2.2.2"><a href="#rfc.section.2.2.2">2.2.2.</a> PUBLISH messages from the broker to the subscriber clients</h1>
 <p id="rfc.section.2.2.2.p.1">To forward PUBLISH messages to the subscribing clients, the broker identifies all the subscribers that have matching valid topic subscriptions (i.e., the tokens are valid and token scopes allow a subscription to the particular topic name).  The broker sends a PUBLISH message with the topic name and the topic message to all the valid subscribers.  </p>
 <p id="rfc.section.2.2.2.p.2">In MQTT, after connection establishment there is no way to inform a client that an authorization error has occurred for previously subscribed topics, e.g., token expiry.  In the case of an authorization error, the broker has two options: (1) stop forwarding PUBLISH messages to the unauthorized client or (2) disconnect the client.  In the <a href="#MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</a> <cite title="NONE">[MQTT-OASIS-Standard]</cite>, the MQTT DISCONNECT messages are only sent from a client to the broker.  Therefore, the server disconnection needs to take place below the application layer.  </p>
 <h1 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3.</a> Authorizing SUBSCRIBE messages</h1>
-<p id="rfc.section.2.3.p.1">In MQTT, a SUBSCRIBE message is sent from a client to the broker, to create one or more subscriptions to one or more topics.  </p>
-<p><a href="#mqtt_subscribe_message">Figure 4</a> shows the MQTT SUBSCRIBE message format.  The SUBSCRIBE message may contain multiple topic filters.  The topic filters may include wildcard characters.  </p>
-<div id="rfc.figure.4"/>
-<div id="mqtt_subscribe_message"/>
-<pre>
-       0            8            16            24            32
-       +------------------------------------------------------+
-       |CPT=8|Rsvd. | Length     |          Packet Identifier |
-       +------------------------------------------------------+
-       |      Topic length     |        Topic filter          |
-       |-----------------------+                              |
-       |        ...                                           |
-       +------------------------------------------------------+
-       |  Rsvd/QoS  |           ....                          |
-       +------------------------------------------------------+
-                </pre>
-<p class="figure">Figure 4: MQTT SUBSCRIBE control message. (CPT=Control Packet Type, Rsvd.=Reserved, QoS=Quality of Service)</p>
-<p id="rfc.section.2.3.p.3">The SUBSCRIBE message does not have any field suitable for including a token.  Therefore, on receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e., SUBSCRIBE) and the topic name in the message header to compare against the 'scope' field of the stored token or introspection result.  </p>
-<p id="rfc.section.2.3.p.4">As a response to the SUBSCRIBE message, the broker issues a SUBACK message. For each topic filter, the SUBACK packet includes a return code.  In the case of success, the return code must be either 0x00, 0x01 or 0x02, matching the QoS level for the corresponding topic filter.  </p>
-<p id="rfc.section.2.3.p.5">In the case of failure, the return code must be 0x08 indicating 'Failure'.  In version 3.1, there is no other way to signal the reason for an authorization failure to the Subscriber, or to communicate further detail.  </p>
+<p id="rfc.section.2.3.p.1">In MQTT, a SUBSCRIBE message is sent from a client to the broker to create one or more subscriptions to one or more topics.  The SUBSCRIBE message may contain multiple topic filters.  The topic filters may include wildcard characters.  </p>
+<p id="rfc.section.2.3.p.2">On receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e., SUBSCRIBE) and the topic filter in the message header to compare against the stored token or introspection result (depending on the implementation, different fields of the token or introspection result may be checked, see Note in <a href="#token_validation">Section 2.1.3</a>).  </p>
+<p id="rfc.section.2.3.p.3">As a response to the SUBSCRIBE message, the broker issues a SUBACK message. For each topic filter, the SUBACK packet includes a return code matching the QoS level for the corresponding topic filter. In the case of failure, the return code, in version 3.1,  must be 0x80 indicating 'Failure'.  In version 5, the appropriate return code is 0x87, indicating that the client is 'Not authorized'. Note that, in both MQTT versions, a reason code is returned for each topic filter. Therefore, the client may receive success codes for a subset its topic filters, while being unauthorised for the rest.  </p>
 <h1 id="rfc.section.2.4"><a href="#rfc.section.2.4">2.4.</a> Token expiration</h1>
 <p id="rfc.section.2.4.p.1">The broker checks for token expiration whenever a CONNECT, PUBLISH or SUBSCRIBE message is received or sent.  The validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an introspection request with the Authorization server as described in the Section 8.2 of <a href="#I-D.ietf-ace-oauth-authz">the ACE framework</a> <cite title="NONE">[I-D.ietf-ace-oauth-authz]</cite>.  Token expirations leads to disconnecting the associated client.  </p>
 <h1 id="rfc.section.2.5"><a href="#rfc.section.2.5">2.5.</a> Handling disconnections</h1>

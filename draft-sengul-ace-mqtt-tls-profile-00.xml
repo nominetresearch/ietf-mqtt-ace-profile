@@ -588,8 +588,8 @@
                     <t>
                         On receiving the PUBLISH message, the broker MUST use the type of
                         message (i.e., PUBLISH) and the topic name in the message header to compare against the
-                        cached introspection result for the client token (depending on the implementation, different fields of the introspection
-			result may be checked, see Note in <xref target="token_validation"></xref>.
+                        cached token or its introspection result (depending on the implementation, different fields of the token or the introspection
+			result may be checked, see Note in <xref target="token_validation"></xref>).
                     </t>
                     <t>
                        If the client is allowed to publish to the topic, the RS must publish the message to all valid subscribers to the topic. The broker
@@ -598,7 +598,8 @@
 		    </t>	
 		     <t>	
 		       In case of a faiure,  it is not possible to return an error in <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
-		       The return of acknowledgement messages only indicate success. In the case of an authorization error, the broker SHOULD disconnect the client. Otherwise, it
+		       The return of acknowledgement messages only indicate success. In the case of an authorization error, the broker SHOULD disconnect the client.
+		       Otherwise, it
                         MUST silently ignore the message. Also, 
                         DISCONNECT messages are only sent from a client to the broker. So, server disconnection
                         needs to take place below the application layer. However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
@@ -627,46 +628,24 @@
                 </section>
             </section>
             <section title="Authorizing SUBSCRIBE messages">
-                <t>In MQTT, a SUBSCRIBE message is sent from a client to the broker, to create one or more subscriptions
+                <t>In MQTT, a SUBSCRIBE message is sent from a client to the broker to create one or more subscriptions
                     to one or more topics.
-                </t>
-                <t>
-                    <xref target="mqtt_subscribe_message"></xref>
-                    shows the MQTT SUBSCRIBE message format.
                     The SUBSCRIBE message may contain multiple topic filters.
                     The topic filters may include wildcard characters.
                 </t>
-                <figure align="center" anchor="mqtt_subscribe_message"
-                        title="MQTT SUBSCRIBE control message. (CPT=Control Packet Type, Rsvd.=Reserved, QoS=Quality of Service)">
-                    <artwork align="left"><![CDATA[
-       0            8            16            24            32
-       +------------------------------------------------------+
-       |CPT=8|Rsvd. | Length     |          Packet Identifier |
-       +------------------------------------------------------+
-       |      Topic length     |        Topic filter          |
-       |-----------------------+                              |
-       |        ...                                           |
-       +------------------------------------------------------+
-       |  Rsvd/QoS  |           ....                          |
-       +------------------------------------------------------+
-                ]]></artwork>
-                </figure>
                 <t>
-                    The SUBSCRIBE message does not have any field suitable for including a token.
-                    Therefore, on receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e.,
-                    SUBSCRIBE) and the topic name in the message header to compare
-                    against the 'scope' field of the stored token or introspection result.
+                    On receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e.,
+                    SUBSCRIBE) and the topic filter in the message header to compare
+                    against the stored token or introspection result (depending on the implementation, different fields of the token or introspection
+		    result may be checked, see Note in <xref target="token_validation"></xref>).
                 </t>
                 <t>
                     As a response to the SUBSCRIBE message, the broker issues a SUBACK message. For each topic filter,
-                    the SUBACK packet includes a return code.
-                    In the case of success, the return code must be either 0x00, 0x01 or 0x02, matching the QoS level
-                    for the corresponding topic filter.
-                </t>
-                <t>
-                    In the case of failure, the return code must be 0x08 indicating 'Failure'.
-                    In version 3.1, there is no other way to signal the reason for an authorization failure to the Subscriber, or to
-                    communicate further detail.
+                    the SUBACK packet includes a return code matching the QoS level
+                    for the corresponding topic filter. In the case of failure, the return code, in version 3.1,  must be 0x80 indicating 'Failure'.
+                    In version 5, the appropriate return code is 0x87, indicating that the client is 'Not authorized'. Note that, in both MQTT versions,
+		    a reason code is returned for each topic filter. Therefore, the client may receive success codes for a subset its topic filters, while being
+		    unauthorised for the rest. 
                 </t>
             </section>
             <section title="Token expiration">
