@@ -5,7 +5,8 @@
 ACE Working Group                                              C. Sengul
 Internet-Draft                                                  A. Kirby
 Intended status: Standards Track                                 Nominet
-Expires: March 19, 2018                               September 15, 2017
+Expires: March 22, 2018                                     P. Fremantle
+                                                      September 18, 2017
 
 
                         MQTT-TLS profile of ACE
@@ -35,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 19, 2018.
+   This Internet-Draft will expire on March 22, 2018.
 
 Copyright Notice
 
@@ -52,8 +53,7 @@ Copyright Notice
 
 
 
-
-Sengul & Kirby           Expires March 19, 2018                 [Page 1]
+Sengul, et al.           Expires March 22, 2018                 [Page 1]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -83,16 +83,19 @@ Table of Contents
      2.4.  Token expiration  . . . . . . . . . . . . . . . . . . . .  13
      2.5.  Handling disconnections . . . . . . . . . . . . . . . . .  13
      2.6.  Handling retained messages  . . . . . . . . . . . . . . .  14
-   3.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   5.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     6.2.  Informative References  . . . . . . . . . . . . . . . . .  15
+   3.  Improved Protocol Interactions with MQTT v5 . . . . . . . . .  14
+     3.1.  Token Transport via Authentication Exchange (AUTH)  . . .  14
+     3.2.  Authorisation Errors and Client Re-authentication . . . .  14
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  15
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  16
    Appendix A.  Checklist for profile requirements . . . . . . . . .  16
    Appendix B.  The `authorization information' endpoint . . . . . .  17
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 1.  Introduction
 
@@ -103,16 +106,17 @@ Table of Contents
    interactions follow MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard].
    The document also describes improvements to this basic protocol
    operation with the new MQTT v5 - OASIS Specification Draft
-   [MQTT-OASIS-Standard-v5] (e.g., improved authentication exchange and
-   error reporting).  Both versions are expected to be supported in
-   practice, and therefore, covered in this document.
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 2]
+Sengul, et al.           Expires March 22, 2018                 [Page 2]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
+
+   [MQTT-OASIS-Standard-v5] (e.g., improved authentication exchange and
+   error reporting).  Both versions are expected to be supported in
+   practice, and therefore, covered in this document.
 
    MQTT is a publish-subscribe protocol, and supports two types of
    client operation: publish and subscribe.  Once connected, a client
@@ -154,18 +158,14 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    o  Subscribe messages from the subscribers to the broker
 
    In Section Section 2, these exchanges are described based on the MQTT
-   v3.1 - OASIS Standard [MQTT-OASIS-Standard].  Section [PLACEHOLDER],
-   describes how these exchanges may be improved by the new MQTT v5 -
-   OASIS Specification Draft [MQTT-OASIS-Standard-v5].
+   v3.1 - OASIS Standard [MQTT-OASIS-Standard].  Section 3, describes
+   how these exchanges may be improved by the new MQTT v5 - OASIS
+   Specification Draft [MQTT-OASIS-Standard-v5].
 
 
 
 
-
-
-
-
-Sengul & Kirby           Expires March 19, 2018                 [Page 3]
+Sengul, et al.           Expires March 22, 2018                 [Page 3]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -221,7 +221,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 4]
+Sengul, et al.           Expires March 22, 2018                 [Page 4]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -268,8 +268,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    according to the MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard].
    These exchanges are compatible also with the new MQTT v5 - OASIS
    Specification Draft [MQTT-OASIS-Standard-v5].  In addition, in
-   Section [PLACEHOLDER], the document describes how these exchanges may
-   be improved with the MQTT v5.
+   Section 3, this document describes how these exchanges may be
+   improved with the MQTT v5.
 
    o  Authorizing connection establishment between the clients and the
       broker
@@ -277,7 +277,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 5]
+Sengul, et al.           Expires March 22, 2018                 [Page 5]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -333,7 +333,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 6]
+Sengul, et al.           Expires March 22, 2018                 [Page 6]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -389,7 +389,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 7]
+Sengul, et al.           Expires March 22, 2018                 [Page 7]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -416,7 +416,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    message after the TLS handshake.  This is similar to an earlier
    proposal by Fremantle et al. [fremantle14].  A complementary method
    can be implemented with MQTT v5 - OASIS Specification Draft
-   [MQTT-OASIS-Standard-v5] and is described in Section [PLACEHOLDER].
+   [MQTT-OASIS-Standard-v5] and is described in Section 3.
    Alternatively, the token may be used for the TLS session
    establishment as described in the DTLS profile for ACE
    [I-D.gerdes-ace-dtls-authorize].  In this case, both the TLS PSK and
@@ -445,7 +445,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 8]
+Sengul, et al.           Expires March 22, 2018                 [Page 8]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -501,7 +501,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                 [Page 9]
+Sengul, et al.           Expires March 22, 2018                 [Page 9]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -515,10 +515,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    to the access token is intentionally not specified in RFC 7800
    [RFC7800].  In this document, the client MUST apply the key either to
    the token or the entire request by computing a keyed message digest
-   (for symmetric key) or a digital signature (for asymmetric key).  In
-   addition, Section [Placeholder] describes request-response protocol,
-   which is possible under MQTT v5 and enables the RS to send a
-   challenge to the client.
+   (for symmetric key) or a digital signature (for asymmetric key).
 
    For the basic operation described in this section, the Username field
    MUST be set to the token.  The Password field MUST be set to this
@@ -554,16 +551,17 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    the signature or the MAC over the token or the contents of the
    packet, authenticating the client.
 
+   The broker uses the scope field in the token (or in the introspection
+   result) to determine the publish and subscribe permissions for the
 
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 10]
+
+Sengul, et al.           Expires March 22, 2018                [Page 10]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
-   The broker uses the scope field in the token (or in the introspection
-   result) to determine the publish and subscribe permissions for the
    client.  If the Will flag is set, then the broker MUST check that the
    token allows the publication of the Will message too.
 
@@ -604,7 +602,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    including diagnostic information.  Therefore, AS discovery needs to
    take place out-of-band.  This is remedied in MQTT v5 - OASIS
    Specification Draft [MQTT-OASIS-Standard-v5] and a solution is
-   described in Section [Placeholder].
+   described in Section 3.
 
    If the RS accepts the connection, it MUST store the token.
 
@@ -613,7 +611,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 11]
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 11]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -642,8 +642,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    disconnection needs to take place below the application layer.
    However, in MQTT v5 - OASIS Specification Draft
    [MQTT-OASIS-Standard-v5], it is possible to indicate failure and
-   provide a reason code.  Section [Placeholder] describes in more
-   detail how PUBLISH authorisation errors are handled.
+   provide a reason code.  Section 3 describes in more detail how
+   PUBLISH authorisation errors are handled.
 
 2.2.2.  PUBLISH messages from the broker to the subscriber clients
 
@@ -669,7 +669,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 12]
+Sengul, et al.           Expires March 22, 2018                [Page 12]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -708,7 +708,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    associated client.  However, in MQTT v5 - OASIS Specification Draft
    [MQTT-OASIS-Standard-v5], better authorisation error handling and
    reauthorisation is possible.  This is explained in more detail in
-   Section [Placeholder].
+   Section 3.
 
 2.5.  Handling disconnections
 
@@ -725,7 +725,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 13]
+Sengul, et al.           Expires March 22, 2018                [Page 13]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
@@ -761,32 +761,53 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    triggered by the broker due to an authorisation error, the broker
    MUST stop publishing all retained messages from that client.
 
-3.  IANA Considerations
+3.  Improved Protocol Interactions with MQTT v5
 
-   This memo includes no request to IANA.
+   [TODO]: Motivation for considering MQTT v5
 
-4.  Security Considerations
+3.1.  Token Transport via Authentication Exchange (AUTH)
 
-   TBD.
+   Use of Authentication method and Authentication Data in CONNECT and
+   AUTH messages for token transport
 
-5.  Privacy Considerations
+3.2.  Authorisation Errors and Client Re-authentication
 
-   TBD.
+   [TODO]: Cases to discuss include:
 
-6.  References
-
-
-
-
-
+   o  AS discovery - when CONNECT does not have any token, but AUTH
+      method is ACE, then CONNACK may return a not authorized with User
+      Property with AS location.
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 14]
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 14]
 
 Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
-6.1.  Normative References
+   o  Server side disconnections with a "Not authorised" reason code
+      possible (useful in case of Subscriber not authorised to receive
+      the topic, at the time a new message is published to the topic.
+
+   o  PUBACKs now include authorization error.  May be used to trigger
+      re-authentication without disconnecting the client.
+
+4.  IANA Considerations
+
+   This memo includes no request to IANA.
+
+5.  Security Considerations
+
+   TBD.
+
+6.  Privacy Considerations
+
+   TBD.
+
+7.  References
+
+7.1.  Normative References
 
    [I-D.gerdes-ace-dtls-authorize]
               Gerdes, S., Bergmann, O., Bormann, C., Selander, G., and
@@ -812,12 +833,21 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
               5.0", 2017, <http://docs.oasis-
               open.org/mqtt/mqtt/v5.0/csprd01/mqtt-v5.0-csprd01.html>.
 
+
+
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 15]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
               editor.org/info/rfc2119>.
 
-6.2.  Informative References
+7.2.  Informative References
 
    [fremantle14]
               Fremantle, P., Aziz, B., Kopecky, J., and P. Scott,
@@ -831,16 +861,6 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
               architecture for authorization in constrained
               environments", draft-ietf-ace-actors-05 (work in
               progress), March 2017.
-
-
-
-
-
-
-Sengul & Kirby           Expires March 19, 2018                [Page 15]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    [I-D.ietf-ace-cwt-proof-of-possession]
               Jones, M., Seitz, L., Selander, G., Wahlstroem, E.,
@@ -871,6 +891,13 @@ Appendix A.  Checklist for profile requirements
 
    o  Security protocol between the client and RS: TLS
 
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 16]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
    o  Client and RS mutual authentication: RS provides a server
       certificate during TLS handshake.  Client uses token and MAC
       fields in the MQTT connect message.
@@ -889,14 +916,6 @@ Appendix A.  Checklist for profile requirements
 
    o  /authz-info endpoint: It MAY be supported using the method
       described in Appendix B, not protected.
-
-
-
-
-Sengul & Kirby           Expires March 19, 2018                [Page 16]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    o  Token transport: In MQTT CONNECT message or using the method
       described in Appendix B.
@@ -927,6 +946,14 @@ Acknowledgements
    The authors would like to thank Ludwig Seitz for his input on the
    authorisation information endpoint, presented in the appendix.
 
+
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 17]
+
+Internet-Draft           MQTT-TLS profile of ACE          September 2017
+
+
 Authors' Addresses
 
    Cigdem Sengul
@@ -947,6 +974,35 @@ Authors' Addresses
    Email: Anthony.Kirby@nominet.uk
 
 
+   Paul Fremantle
 
 
-Sengul & Kirby           Expires March 19, 2018                [Page 17]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sengul, et al.           Expires March 22, 2018                [Page 18]

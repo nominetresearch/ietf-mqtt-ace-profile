@@ -104,6 +104,11 @@
             </address>
         </author>
 
+	<!-- Author 3 -->
+	<author fullname="Paul Fremantle" initials="P.F"
+		surname="Fremantle">
+	</author>  
+
         <date year="2017"/>
 
         <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
@@ -200,7 +205,7 @@
             </t>
 	    <t>
 	      In Section <xref target="basic-protocol"></xref>, these exchanges are described based on the
-	      <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>. Section [PLACEHOLDER], describes how these exchanges
+	      <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>. <xref target="MQTTv5"></xref>, describes how these exchanges
 	      may be improved by the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref>. 
 	    </t>
 
@@ -314,7 +319,7 @@
           <t> This section describes the following exchanges between publisher and subscriber clients, the broker, and
 	  the authorization server according to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>.
 	  These exchanges are compatible also with the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
-	  Draft</xref>. In addition, in Section [PLACEHOLDER], the document describes how these exchanges may be improved with the
+	  Draft</xref>. In addition, in <xref target="MQTTv5"></xref>, this document describes how these exchanges may be improved with the
 	  MQTT v5.  
             </t>
             <t>
@@ -420,7 +425,7 @@
                         control message after the TLS handshake. This is similar to an earlier proposal by Fremantle et 
                         al. <xref target="fremantle14"></xref>. A complementary method can be implemented with
 		        <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref> and
-			is described in Section [PLACEHOLDER].
+			is described in <xref target="MQTTv5"></xref>.
                         Alternatively, the token may be used for the TLS session establishment as described in
                         the <xref target="I-D.gerdes-ace-dtls-authorize">DTLS profile for ACE</xref>. In this case, both
                         the TLS PSK and RPK handshakes MAY be supported.
@@ -499,9 +504,9 @@
 			token or the entire request 
 			by computing a keyed message digest
    			(for symmetric key) or a digital signature (for asymmetric key).
-			In addition, Section [Placeholder]
+			<!--In addition, <xref target="MQTTv5"></xref>
 			describes request-response protocol, which is possible under MQTT v5 and enables 
-			the RS to send a challenge to the client.  	
+			the RS to send a challenge to the client. -->  	
 		   </t>
 		   <t>  For the basic operation described in this section, the Username field MUST be set to the token.	
 			The Password field MUST be set to this keyed message digest (MAC) or signature.      
@@ -572,10 +577,11 @@
 		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref>, depending on which version(s) broker supports. 
                     </t>
 		    <t>
-                        In <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>, it is not possible to support AS discovery via sending a tokenless CONNECT message to the broker.
+                      In <xref target="MQTT-OASIS-Standard">MQTT v3.1 - OASIS Standard</xref>, it is not possible to support AS discovery via sending a tokenless
+		      CONNECT message to the broker.
                         This is because a CONNACK packet does not include a property to provide additional information to the client including diagnostic information.
 			Therefore, AS discovery needs to take place out-of-band. This is remedied in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
-			Draft</xref> and a solution is described in Section [Placeholder].
+			Draft</xref> and a solution is described in <xref target="MQTTv5"></xref>.
                     </t>
                     <t>
                         If the RS accepts the connection, it MUST store the token.
@@ -603,7 +609,7 @@
                         MUST silently ignore the message. Also, 
                         DISCONNECT messages are only sent from a client to the broker. So, server disconnection
                         needs to take place below the application layer. However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
-			Draft</xref>, it is possible to indicate failure and provide a reason code. Section [Placeholder] describes in more detail how
+			Draft</xref>, it is possible to indicate failure and provide a reason code. <xref target="MQTTv5"></xref> describes in more detail how
 			PUBLISH authorisation errors are handled.   
                     </t>
                     
@@ -658,7 +664,7 @@
                     In the basic operation, token expirations lead to disconnecting the associated client.
 		    However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification
 		    Draft</xref>, better authorisation error handling and reauthorisation is possible.
-		    This is explained in more detail in Section [Placeholder].   
+		    This is explained in more detail in <xref target="MQTTv5"></xref>.   
                 </t>
             </section>
             <section title="Handling disconnections">
@@ -700,7 +706,30 @@
 	    </section>
         </section>
 
-        <!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
+	<section anchor="MQTTv5" title="Improved Protocol Interactions with MQTT v5">
+	  <t>
+	    [TODO]: Motivation for considering MQTT v5
+	  </t>  
+	  <section anchor="token_transport_v5" title="Token Transport via Authentication Exchange (AUTH)">
+	    <t>
+	      Use of Authentication method and Authentication Data in CONNECT and AUTH messages for token transport
+	    </t>  
+	  </section>
+	  <section anchor="improved_error_messaging" title="Authorisation Errors and Client Re-authentication">
+	    <t>
+	      [TODO]: Cases to discuss include:
+	       <list style="symbols">
+		 <t> AS discovery - when CONNECT does not have any token, but AUTH method is ACE, then CONNACK may return a not authorized with User Property with AS
+		 location.</t>
+		 <t> Server side disconnections with a "Not authorised" reason code possible (useful in case of Subscriber not authorised to receive the topic, at the time
+		 a new message is published to the topic.</t>
+		 <t> PUBACKs now include authorization error. May be used to trigger re-authentication without disconnecting the client.</t>
+	       </list>
+	    </t>
+	  </section>  
+	</section>
+        
+	<!-- This PI places the pagebreak correctly (before the section title) in the text output. -->
 
         <!--<?rfc needLines="8" ?>-->
 
