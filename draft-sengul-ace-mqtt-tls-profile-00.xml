@@ -780,7 +780,7 @@
 	      The second option that RS may accept is a challenge/response protocol. If the Authentication Data only
 	      includes the token, the RS MUST respond with an AUTH packet, with an Authenticate Reason Code  set to
 	      '0x18 (Continue Authentication)'. This packet includes Authentication Method, which MUST be set to
-	      'ace_mqtt_tls' and Authentication Data. The Authentication Data MUST not be empty, and includes a
+	      'ace_mqtt_tls' and Authentication Data. The Authentication Data MUST NOT be empty, and includes a
 	      a challenge for the client. The client responds to this with an AUTH packet, with a reason code  
 	      '0x18 (Continue Authentication)'. Similarly, the client packet sets the Authentication Method to 'ace_mqtt_tls'.
 	      The Authentication Data in the client's response contains the signature or MAC computed over the RS's challenge.

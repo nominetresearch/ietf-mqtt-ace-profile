@@ -825,7 +825,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    MUST respond with an AUTH packet, with an Authenticate Reason Code
    set to '0x18 (Continue Authentication)'.  This packet includes
    Authentication Method, which MUST be set to 'ace_mqtt_tls' and
-   Authentication Data.  The Authentication Data MUST not be empty, and
+   Authentication Data.  The Authentication Data MUST NOT be empty, and
    includes a a challenge for the client.  The client responds to this
    with an AUTH packet, with a reason code '0x18 (Continue
    Authentication)'.  Similarly, the client packet sets the
