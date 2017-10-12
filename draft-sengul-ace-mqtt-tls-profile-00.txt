@@ -5,8 +5,9 @@
 ACE Working Group                                              C. Sengul
 Internet-Draft                                                  A. Kirby
 Intended status: Standards Track                                 Nominet
-Expires: April 2, 2018                                      P. Fremantle
-                                                      September 29, 2017
+Expires: April 15, 2018                                     P. Fremantle
+                                                University of Portsmouth
+                                                        October 12, 2017
 
 
                         MQTT-TLS profile of ACE
@@ -36,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 2, 2018.
+   This Internet-Draft will expire on April 15, 2018.
 
 Copyright Notice
 
@@ -49,15 +50,15 @@ Copyright Notice
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 1]
+Sengul, et al.           Expires April 15, 2018                 [Page 1]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
+   include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
@@ -84,17 +85,18 @@ Table of Contents
      2.5.  Handling disconnections and retained messages . . . . . .  13
    3.  Improved Protocol Interactions with MQTT v5 . . . . . . . . .  14
      3.1.  Token Transport via Authentication Exchange (AUTH)  . . .  14
-     3.2.  Authorisation Errors and Client Re-authentication . . . .  14
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
-   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .  15
-   Appendix A.  Checklist for profile requirements . . . . . . . . .  16
-   Appendix B.  The `authorization information' endpoint . . . . . .  17
-   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  17
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
+     3.2.  Authorisation Errors and Client Re-authentication . . . .  16
+   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .  17
+   Appendix A.  Checklist for profile requirements . . . . . . . . .  18
+   Appendix B.  The `authorization information' endpoint . . . . . .  19
+   Appendix C.  Document Updates . . . . . . . . . . . . . . . . . .  19
+   Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  20
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -104,16 +106,16 @@ Table of Contents
    communication security between entities.  The basic protocol
    interactions follow MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard].
    This document also describes improvements to the basic protocol
+
+
+
+Sengul, et al.           Expires April 15, 2018                 [Page 2]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
    operation with the new MQTT v5 - OASIS Specification Draft
    [MQTT-OASIS-Standard-v5] (e.g., improved authentication exchange and
-
-
-
-Sengul, et al.            Expires April 2, 2018                 [Page 2]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
-
    error reporting).  Both versions are expected to be supported in
    practice, and therefore, covered in this document.
 
@@ -163,11 +165,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-
-
-Sengul, et al.            Expires April 2, 2018                 [Page 3]
+Sengul, et al.           Expires April 15, 2018                 [Page 3]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 1.1.  Requirements Language
@@ -221,9 +221,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 4]
+Sengul, et al.           Expires April 15, 2018                 [Page 4]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    not relevant for authorization are not explained.  These include, for
@@ -277,9 +277,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 5]
+Sengul, et al.           Expires April 15, 2018                 [Page 5]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    o  Authorizing publish messages from the publishers to the broker,
@@ -333,9 +333,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 6]
+Sengul, et al.           Expires April 15, 2018                 [Page 6]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
                                +----------------+
@@ -389,9 +389,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 7]
+Sengul, et al.           Expires April 15, 2018                 [Page 7]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    symmetric or asymmetric PoP key is returned.  The token may be a
@@ -445,9 +445,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 8]
+Sengul, et al.           Expires April 15, 2018                 [Page 8]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
           0            8            16            24            32
@@ -458,8 +458,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
           +------------------------------------------------------+
           | Proto.level=4|Connect flags|          Keep alive     |
           +------------------------------------------------------+
-          |         Payload including User Name (='token')         |
-          |     Password length and data (=signature/MAC)   |
+          |         Payload including User Name (='token')       |
+          |     Password length and data (=signature/MAC)        |
           |                           ...                        |
           +------------------------------------------------------+
 
@@ -501,9 +501,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                 [Page 9]
+Sengul, et al.           Expires April 15, 2018                 [Page 9]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    Finally, Username and Password flags MUST be set to 1 to ensure that
@@ -511,7 +511,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    Password fields.
 
    The CONNECT message defaults to ACE for authentication and
-   authorisation.  For the basic operation described in this section,
+   authorization.  For the basic operation described in this section,
    the Username field MUST be set to the token.  The Password field MUST
    be set to the keyed message digest (MAC) or signature.  The client
    MAY apply the PoP key either to the token or the entire request by
@@ -557,9 +557,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                [Page 10]
+Sengul, et al.           Expires April 15, 2018                [Page 10]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    The broker MAY cache the introspection result because it will need to
@@ -613,9 +613,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                [Page 11]
+Sengul, et al.           Expires April 15, 2018                [Page 11]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    (depending on the implementation, different fields of the token or
@@ -636,7 +636,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    However, in MQTT v5 - OASIS Specification Draft
    [MQTT-OASIS-Standard-v5], it is possible to indicate failure and
    provide a reason code.  Section 3 describes in more detail how
-   PUBLISH authorisation errors are handled.
+   PUBLISH authorization errors are handled.
 
 2.2.2.  PUBLISH messages from the broker to the subscriber clients
 
@@ -669,9 +669,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                [Page 12]
+Sengul, et al.           Expires April 15, 2018                [Page 12]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    to compare against the stored token or introspection result
@@ -686,7 +686,7 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    0x87, indicating that the client is 'Not authorized'.  Note that, in
    both MQTT versions, a reason code is returned for each topic filter.
    Therefore, the client may receive success codes for a subset its
-   topic filters, while being unauthorised for the rest.
+   topic filters, while being unauthorized for the rest.
 
 2.4.  Token expiration
 
@@ -697,8 +697,8 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
    Section 8.2 of the ACE framework [I-D.ietf-ace-oauth-authz].  In the
    basic operation, token expirations MAY lead to disconnecting the
    associated client.  However, in MQTT v5 - OASIS Specification Draft
-   [MQTT-OASIS-Standard-v5], better authorisation error handling and re-
-   authorisation are possible.  This is explained in more detail in
+   [MQTT-OASIS-Standard-v5], better authorization error handling and re-
+   authorization are possible.  This is explained in more detail in
    Section 3.
 
 2.5.  Handling disconnections and retained messages
@@ -725,9 +725,9 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-Sengul, et al.            Expires April 2, 2018                [Page 13]
+Sengul, et al.           Expires April 15, 2018                [Page 13]
 
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    supplied a Will in the CONNECT request message.  The token provided
@@ -737,29 +737,148 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 3.  Improved Protocol Interactions with MQTT v5
 
-   [Motivation for considering MQTT v5]
+   In the new MQTT v5 - OASIS Specification Draft
+   [MQTT-OASIS-Standard-v5], several new capabilities are introduced,
+   which enables better integration with the ACE standards.  For
+   instance, the new enhanced authentication and re-authentication
+   methods support a much wider range of authentication flows beyond
+   username and password.  With the MQTT v5, there is a clearly defined
+   approach for using token-based approaches.  Similarly, in MQTT v5,
+   there is a clear flow for the RS to indicate that a token has expired
+   and the client to request a re-authentication.  Finally, MQTT v5
+   generally improves error reporting enabling better response to
+   authorization failures during publishing and forwarding of messages
+   to the subscribers.
 
 3.1.  Token Transport via Authentication Exchange (AUTH)
 
-   [Use of Authentication method and Authentication Data in CONNECT and
-   AUTH messages for token transport]
+   To initiate the authentication and authorization flow, as before, the
+   CAS initiates the token request as in Section 2.1.  and when the
+   client wishes to connect to the RS (broker), it uses the CONNECT
+   message of MQTT.  Figure 4 shows the structure of the MQTT CONNECT
+   control message used in MQTT v5.
+
+          0            8            16            24            32
+          +------------------------------------------------------+
+          |CPT=1 | Rsvd.|Remaining len.| Protocol  name len. = 4 |
+          +------------------------------------------------------+
+          |                      'M' 'Q' 'T' 'T'                 |
+          +------------------------------------------------------+
+          | Proto.level=5|Connect flags|          Keep alive     |
+          +------------------------------------------------------+
+          |                 Property length                      |
+          |              Auth. Method (0x15) | 'ace_mqtt_tls'    |
+          |          Auth. Data (0x16)   | empty or token        |
+          |                                                      |
+          +------------------------------------------------------+
+
+    Figure 4: MQTT CONNECT control message.  (CPT=Control Packet Type,
+               Rsvd=Reserved, len.=length, Proto.=Protocol)
+
+   To communicate the necessary connection parameters, the client uses
+   the appropriate flags of the CONNECT message.  TO achieve a clean
+   session (i.e., the session should start without an existing session),
+
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 14]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
+   the new MQTT v5 session flags MUST be set appropriately.  More
+   specifically, the Clean Start Flag MUST be set to 1, and Session
+   Expiry Interval to 0.
+
+   With the enhanced authentication capabilities, it is no more
+   necessary to overload the username and password fields in the CONNECT
+   message for ACE authentication.  For MQTT v5, the RS MUST support
+   both methods for supporting the token: (1) Token transport via
+   username and password and (2) using the new AUTH (Authentication
+   Exchange) method.  The token transport via username and password is
+   as described in Section 2.1.2.  The rest of this section describes
+   the AUTH method.
+
+   To use the AUTH method, the username flag MUST be set to 0 and the
+   password flag MUST be set to 0.  The client can set the
+   Authentication Method as a property of a CONNECT packet by setting
+   Auth Properties (with the property identifier 0x15).  The client must
+   support the AUTH method MUST set the UTF-8 encoded string containing
+   the name of the authentication method as 'ace_mqtt_tls'.  If the RS
+   does not support this profile, it sends a CONNACK with a Reason Code
+   of '0x8C (Bad authentication method)'
+
+   Authentication Method is followed with Authentication Data, which has
+   a property identifier 0x16.  Authentication data is binary data, and
+   is defined by authentication method.  The RS MAY support different
+   implementations for transporting the token.  The first option is that
+   Authentication data contains both the token, and the keyed message
+   digest (MAC) or signature as described in Section 2.1.2.  In this
+   case, the token validation proceeds as described in Section 2.1.3 and
+   the the server responds with a CONNACK and a return code of '0x00
+   (Success)' if the authentication is successful.  In case of an
+   invalid PoP token, the CONNACK reason code is '0x87 (Not
+   Authorized)'.
+
+   The second option that RS may accept is a challenge/response
+   protocol.  If the Authentication Data only includes the token, the RS
+   MUST respond with an AUTH packet, with an Authenticate Reason Code
+   set to '0x18 (Continue Authentication)'.  This packet includes
+   Authentication Method, which MUST be set to 'ace_mqtt_tls' and
+   Authentication Data.  The Authentication Data MUST not be empty, and
+   includes a a challenge for the client.  The client responds to this
+   with an AUTH packet, with a reason code '0x18 (Continue
+   Authentication)'.  Similarly, the client packet sets the
+   Authentication Method to 'ace_mqtt_tls'.  The Authentication Data in
+   the client's response contains the signature or MAC computed over the
+   RS's challenge.  To this, the server responds with a CONNACK and a
+   return code of '0x00 (Success)' if the authentication is successful.
+
+
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 15]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
+   In case of an invalid PoP token, the CONNACK reason code is '0x87
+   (Not Authorized)'.
+
+   Finally, this document allows the CONNECT message to have an empty
+   Authentication Data field.  This is the AS discovery option, and the
+   RS responds with a CONNACK reason code '0x87 (Not Authorized)' and
+   includes a User Property set to the address of the AS.
 
 3.2.  Authorisation Errors and Client Re-authentication
 
-   [Cases to discuss include:
+   MQTT v5 allows better error reporting.  To take advantage of this for
+   PUBLISH messages, the QoS level should be set to greater than 1.
+   This guarantees the RS to respond with either a PUBACK or PUBREC
+   packet.  In MQTT v5, the reason codes for these packets include '0x87
+   (Not authorized)'.  Similarly, in case of an authorization failure in
+   the SUBSCRIBE case, the SUBACK packet will have a reason code set to
+   '0x87 (Not authorized)' for the unauthorized topic(s).  When RS is
+   forwarding PUBLISH messages to subscribed clients, it may discover
+   that some of the subscribers are no more authorized due to expired
+   tokens.  In this case, the RS MAY send a DISCONNECT message with the
+   reason code '0x87 (Not authorized)' or MAY silently stop forwarding
+   messages to the subscribers.  The server-side DISCONNECT is a new
+   feature of MQTT v5 (in MQTT v3.1 server needed to drop the
+   connection).
 
-   o  AS discovery - when CONNECT does not have any token, but AUTH
-      method is ACE, then CONNACK may return a not authorized with User
-      Property with AS location.
-
-   o  Server-side disconnections with a "Not authorised" reason code
-      possible (useful in case of Subscriber not authorised to receive
-      the topic, at the time a new message is published to the topic.
-
-   o  PUBACKs now include authorization error.  May be used to trigger
-      re-authentication without disconnecting the client.
-
-   ]
+   In the case of a PUBACK with '0x87 (Not authorized)', the client can
+   update its token using the Re-authentication feature of MQTT v5.
+   Also, the clients can proactively update their tokens, without
+   waiting for such a PUBACK.  To re-authenticate, the client sends an
+   AUTH packet with a reason code '0x19 (Re-authentication)'.  The
+   client MUST send the authentication method as 'ace_mqtt_tls' and
+   transports the new token in the Authentication Data.  The client and
+   the RS goes through the same steps for proof of possession validation
+   described in the previous section.  This flow ends with re-
+   authentication is complete or re-authentication fails.  If the re-
+   authentication fails, the server MUST send a DISCONNECT with the
+   reason code '0x87 (Not Authorized)'.
 
 4.  IANA Considerations
 
@@ -767,24 +886,26 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 5.  Security Considerations
 
-   TBD.
+   The security considerations outlined in [I-D.ietf-ace-oauth-authz]
+   apply to this work.
+
+
+
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 16]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
 
 6.  Privacy Considerations
 
-   TBD.
+   The privacy considerations outlined in [I-D.ietf-ace-oauth-authz]
+   apply to this work.  Furthermore, the RS is a central trusted party,
+   and may be forwarding potentially sensitive information between
+   clients.
 
 7.  References
-
-
-
-
-
-
-
-Sengul, et al.            Expires April 2, 2018                [Page 14]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
 7.1.  Normative References
 
@@ -826,21 +947,18 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
               Internet of Things, September 2014,
               <http://dx.doi.org/10.1109/SIoT.2014.8>.
 
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 17]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
    [I-D.ietf-ace-actors]
               Gerdes, S., Seitz, L., Selander, G., and C. Bormann, "An
               architecture for authorization in constrained
               environments", draft-ietf-ace-actors-05 (work in
               progress), March 2017.
-
-
-
-
-
-
-Sengul, et al.            Expires April 2, 2018                [Page 15]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    [I-D.ietf-ace-cwt-proof-of-possession]
               Jones, M., Seitz, L., Selander, G., Wahlstroem, E.,
@@ -863,9 +981,10 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 Appendix A.  Checklist for profile requirements
 
-   o  AS discovery: The clients/client authorization servers need to be
-      configured out-of-band.  RS does not provide any hints to help AS
-      discovery.
+   o  AS discovery: For the basic protocol using MQTT v3.1, the clients/
+      client authorization servers need to be configured out-of-band.
+      RS does not provide any hints to help AS discovery.  AS discovery
+      is possible for the MQTT v5 described in Section 3.
 
    o  Communication protocol between the client and RS: MQTT
 
@@ -883,20 +1002,20 @@ Appendix A.  Checklist for profile requirements
 
    o  Unique profile identifier: mqtt_tls
 
+
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 18]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
    o  Token introspection: RS uses HTTPS /introspect interface of AS.
 
    o  Token request: CAS uses HTTPS /token interface of AS.
 
    o  /authz-info endpoint: It MAY be supported using the method
       described in Appendix B, not protected.
-
-
-
-
-Sengul, et al.            Expires April 2, 2018                [Page 16]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
 
    o  Token transport: In MQTT CONNECT message or using the method
       described in Appendix B.
@@ -922,10 +1041,35 @@ Appendix B.  The `authorization information' endpoint
    case, any token authorization failure will affect the TLS handshake,
    which can prompt the client to obtain a valid token.
 
+Appendix C.  Document Updates
+
+   This new version updates the expired document (July 29, 2017)as
+   follows:
+
+   o  Adds Section 3 to describe improvements to the basic protocol
+      operation with the new MQTT v5 - OASIS Specification Draft
+      [MQTT-OASIS-Standard-v5], including improved authentication
+      exchange and error reporting
+
+   o  Condenses background information specific to MQTT in Section 2.
+
+   o  Clarifies token transport and token structure in Section 2.1.2 and
+      Section 2.1.3.
+
+   o  Removes Appendix on error reporting as this is now handled with
+      MQTT v5.
+
+
+
+Sengul, et al.           Expires April 15, 2018                [Page 19]
+
+Internet-Draft           MQTT-TLS profile of ACE            October 2017
+
+
 Acknowledgements
 
    The authors would like to thank Ludwig Seitz for his input on the
-   authorisation information endpoint, presented in the appendix.
+   authorization information endpoint, presented in the appendix.
 
 Authors' Addresses
 
@@ -947,14 +1091,13 @@ Authors' Addresses
    Email: Anthony.Kirby@nominet.uk
 
 
-
-
-Sengul, et al.            Expires April 2, 2018                [Page 17]
-
-Internet-Draft           MQTT-TLS profile of ACE          September 2017
-
-
    Paul Fremantle
+   University of Portsmouth
+   School of Computing, Buckingham House
+   Portsmouth  PO1 3HE
+   UK
+
+   Email: paul.fremantle@port.ac.uk
 
 
 
@@ -974,35 +1117,4 @@ Internet-Draft           MQTT-TLS profile of ACE          September 2017
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Sengul, et al.            Expires April 2, 2018                [Page 18]
+Sengul, et al.           Expires April 15, 2018                [Page 20]
