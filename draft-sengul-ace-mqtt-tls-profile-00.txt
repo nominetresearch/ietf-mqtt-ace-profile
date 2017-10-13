@@ -5,9 +5,9 @@
 ACE Working Group                                              C. Sengul
 Internet-Draft                                                  A. Kirby
 Intended status: Standards Track                                 Nominet
-Expires: April 15, 2018                                     P. Fremantle
+Expires: April 16, 2018                                     P. Fremantle
                                                 University of Portsmouth
-                                                        October 12, 2017
+                                                        October 13, 2017
 
 
                         MQTT-TLS profile of ACE
@@ -17,7 +17,7 @@ Abstract
 
    This document specifies a profile for the ACE (Authentication and
    Authorization for Constrained Environments) to enable authorization
-   in a MQTT-based publish-subscribe messaging system.  Proof-of-
+   in an MQTT-based publish-subscribe messaging system.  Proof-of-
    possession keys, bound to OAuth2.0 access tokens, are used to
    authenticate and authorize publishing and subscribing clients.  The
    protocol relies on TLS for confidentiality and server authentication.
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 15, 2018.
+   This Internet-Draft will expire on April 16, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 1]
+Sengul, et al.           Expires April 16, 2018                 [Page 1]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -85,7 +85,7 @@ Table of Contents
      2.5.  Handling disconnections and retained messages . . . . . .  13
    3.  Improved Protocol Interactions with MQTT v5 . . . . . . . . .  14
      3.1.  Token Transport via Authentication Exchange (AUTH)  . . .  14
-     3.2.  Authorisation Errors and Client Re-authentication . . . .  16
+     3.2.  Authorization Errors and Client Re-authentication . . . .  16
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
@@ -93,7 +93,7 @@ Table of Contents
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  17
    Appendix A.  Checklist for profile requirements . . . . . . . . .  18
-   Appendix B.  The `authorization information' endpoint . . . . . .  19
+   Appendix B.  The authorization information endpoint . . . . . . .  19
    Appendix C.  Document Updates . . . . . . . . . . . . . . . . . .  19
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 2]
+Sengul, et al.           Expires April 16, 2018                 [Page 2]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -129,19 +129,19 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    filter the subscribers for the message.  Subscribers must subscribe
    to the topics to receive the corresponding messages.
 
-   In this document, message topics are treated as resources.  Both
-   publisher and subscriber clients use an access token, each bound to a
-   key (the proof-of-possession key) to authorize with the MQTT broker
-   their connection and publish/subscribe permissions to topics.  In the
-   context of this ACE profile, the MQTT broker acts as the resource
-   server.  In order to provide communication confidentiality and
-   resource server authentication, TLS is used.
+   In this document, message topics are treated as resources.  Clients
+   use an access token, bound to a key (the proof-of-possession key) to
+   authorize with the MQTT broker their connection and publish/subscribe
+   permissions to topics.  In the context of this ACE profile, the MQTT
+   broker acts as the resource server.  In order to provide
+   communication confidentiality and resource server authentication, TLS
+   is used.
 
-   The publisher and subscriber clients use client authorization servers
-   [I-D.ietf-ace-actors] to obtain tokens from the authorization server.
-   The communication protocol between the client authorization server
-   and the authorization server is assumed to be HTTPS.  Also, if the
-   broker supports token introspection, it is assumed to use HTTPS to
+   Clients use client authorization servers [I-D.ietf-ace-actors] to
+   obtain tokens from the authorization server.  The communication
+   protocol between the client authorization server and the
+   authorization server is assumed to be HTTPS.  Also, if the broker
+   supports token introspection, it is assumed to use HTTPS to
    communicate with the authorization server.  These interfaces MAY be
    implemented using other protocols e.g., CoAP or MQTT.  This document
    makes the same assumptions as the Section 4 of the ACE framework
@@ -158,17 +158,20 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
    o  Subscribe messages from the subscribers to the broker
 
-   In Section Section 2, these exchanges are described based on the MQTT
-   v3.1 - OASIS Standard [MQTT-OASIS-Standard].  Section 3 describes how
-   these exchanges may be improved by the new MQTT v5 - OASIS
-   Specification Draft [MQTT-OASIS-Standard-v5].
+   In Section 2, these exchanges are described based on the MQTT v3.1 -
+   OASIS Standard [MQTT-OASIS-Standard].  These exchanges are also
+   supported by the new MQTT v5 - OASIS Specification Draft
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 3]
+
+Sengul, et al.           Expires April 16, 2018                 [Page 3]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
+
+   [MQTT-OASIS-Standard-v5].  Section 3 describes how they may be
+   improved by the new MQTT v5.
 
 1.1.  Requirements Language
 
@@ -216,16 +219,15 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
            The data carried by the MQTT protocol.  The data has an
            associated QoS level and a Topic name.
 
-   MQTT sends various control messages across a network connection.  The
-   following is not an exhaustive list and the control packets that are
 
 
-
-Sengul, et al.           Expires April 15, 2018                 [Page 4]
+Sengul, et al.           Expires April 16, 2018                 [Page 4]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
+   MQTT sends various control messages across a network connection.  The
+   following is not an exhaustive list and the control packets that are
    not relevant for authorization are not explained.  These include, for
    instance, the PUBREL and PUBCOMP packets used in the 4-step handshake
    required for the QoS level 2.
@@ -237,23 +239,21 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
    CONNACK
            The broker connection acknowledgment.  The first packet sent
-           from broker to a client is a CONNACK packet.  CONNACK packets
-           contain return codes indicating either a success or an error
-           state to the client.
+           from the broker to a client is a CONNACK packet.  CONNACK
+           packets contain return codes indicating either a success or
+           an error state to a client.
 
    PUBLISH
            Publish packet that can be sent from a client to the broker,
-           or from the broker to the client.
+           or from the broker to a client.
 
    PUBACK
            Response to PUBLISH packet with QoS level 1.  PUBACK can be
-           sent from the broker to the client or the client to the
-           broker.
+           sent from the broker to a client or a client to the broker.
 
    PUBREC
            Response to PUBLISH packet with QoS level 2.  PUBREC can be
-           sent from the broker to the client or the client to the
-           broker.
+           sent from the broker to a client or a client to the broker.
 
    SUBSCRIBE
            The client subscribe request.
@@ -277,7 +277,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 5]
+Sengul, et al.           Expires April 16, 2018                 [Page 5]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -333,7 +333,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 6]
+Sengul, et al.           Expires April 16, 2018                 [Page 6]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -389,7 +389,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 7]
+Sengul, et al.           Expires April 16, 2018                 [Page 7]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -445,7 +445,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 8]
+Sengul, et al.           Expires April 16, 2018                 [Page 8]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -501,7 +501,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                 [Page 9]
+Sengul, et al.           Expires April 16, 2018                 [Page 9]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -557,7 +557,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 10]
+Sengul, et al.           Expires April 16, 2018                [Page 10]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -569,13 +569,13 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    the RS needs to introspect the saved token for each request.
 
    Note: Scope strings MAY follow an application specific convention.
-   One option is to encode the permission and the topics it applies to
-   e.g., 'publish_topic1' or 'subscribe_topic2' in the scope string.  A
+   One option is to encode the permission and the topics it applies into
+   the scope string e.g., 'publish_topic1' or 'subscribe_topic2'.  A
    second option is to simply use the keywords 'publish' or 'subscribe'
    as scope strings and use the 'aud' field to define the topic.
-   Another option is to use topic names as scope strings, and use the
-   'aud' field to define the 'publish' or 'subscribe' permission
-   applying to these scopes.  The choice is left to the implementer and
+   Another option is to use topic names as scope strings and use the
+   'aud' field to define whether the 'publish' or 'subscribe' permission
+   applies to these scopes.  The choice is left to the implementer and
    depends on how the following trade-off is expected to be handled:
    token simplicity versus the number of tokens the broker is expected
    to handle per client.
@@ -583,8 +583,8 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 2.1.4.  The broker's response to client connection request
 
    Based on the validation result (obtained either via local inspection
-   or using the /introspection interface of the authorization server),
-   the broker MUST send a CONNACK message to the client.
+   or using the /introspection interface of the AS), the broker MUST
+   send a CONNACK message to the client.
 
    The broker responses may follow either the MQTT v3.1 - OASIS Standard
    [MQTT-OASIS-Standard] or the MQTT v5 - OASIS Specification Draft
@@ -594,11 +594,10 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    In MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], it is not
    possible to support AS discovery via sending a tokenless CONNECT
    message to the broker.  This is because a CONNACK packet does not
-   include a property to provide additional information to the client
-   including diagnostic information.  Therefore, AS discovery needs to
-   take place out-of-band.  This is remedied in MQTT v5 - OASIS
-   Specification Draft [MQTT-OASIS-Standard-v5] and a solution is
-   described in Section 3.
+   include a means to provide additional information to the client.
+   Therefore, AS discovery needs to take place out-of-band.  This is
+   remedied in the MQTT v5 - OASIS Specification Draft
+   [MQTT-OASIS-Standard-v5] and a solution is described in Section 3.
 
    If the RS accepts the connection, it MUST store the token.
 
@@ -609,28 +608,29 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    On receiving the PUBLISH message, the broker MUST use the type of
    message (i.e., PUBLISH) and the topic name in the message header to
    compare against the cached token or its introspection result
+   (depending on the implementation, different fields of the token or
 
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 11]
+Sengul, et al.           Expires April 16, 2018                [Page 11]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
-   (depending on the implementation, different fields of the token or
-   the introspection result may be checked, see Note in Section 2.1.3).
+   the introspection result may be checked, see the Note in
+   Section 2.1.3).
 
    If the client is allowed to publish to the topic, the RS must publish
-   the message to all valid subscribers to the topic.  The broker may
-   also return an acknowledgment message if the QoS level is greater or
-   equal to 1.
+   the message to all valid subscribers of the topic.  The broker may
+   also return an acknowledgment message if the QoS level is greater
+   than or equal to 1.
 
    In case of a failure, it is not possible to return an error in MQTT
    v3.1 - OASIS Standard [MQTT-OASIS-Standard].  The return of
    acknowledgement messages only indicates success.  In the case of an
    authorization error, the broker SHOULD disconnect the client.
-   Otherwise, it MUST silently ignore the message.  Also, DISCONNECT
+   Otherwise, it MUST ignore the PUBLISH message.  Also, DISCONNECT
    messages are only sent from a client to the broker.  So, server
    disconnection needs to take place below the application layer.
    However, in MQTT v5 - OASIS Specification Draft
@@ -655,7 +655,9 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    client.  In the MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], the
    MQTT DISCONNECT messages are only sent from a client to the broker.
    Therefore, the server disconnection needs to take place below the
-   application layer.
+   application layer.  In MQTT v5 - OASIS Specification Draft
+   [MQTT-OASIS-Standard-v5], server-side DISCONNECT messages are
+   possible, and are described in Section 3.
 
 2.3.  Authorizing SUBSCRIBE messages
 
@@ -664,28 +666,28 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    SUBSCRIBE message may contain multiple topic filters.  The topic
    filters may include wildcard characters.
 
-   On receiving the SUBSCRIBE message, the broker MUST use the type of
-   message (i.e., SUBSCRIBE) and the topic filter in the message header
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 12]
+Sengul, et al.           Expires April 16, 2018                [Page 12]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
+   On receiving the SUBSCRIBE message, the broker MUST use the type of
+   message (i.e., SUBSCRIBE) and the topic filter in the message header
    to compare against the stored token or introspection result
    (depending on the implementation, different fields of the token or
-   introspection result may be checked, see Note in Section 2.1.3).
+   introspection result may be checked, see the Note in Section 2.1.3).
 
    As a response to the SUBSCRIBE message, the broker issues a SUBACK
    message.  For each topic filter, the SUBACK packet includes a return
    code matching the QoS level for the corresponding topic filter.  In
-   the case of failure, the return code, in version 3.1, must be 0x80
-   indicating 'Failure'.  In version 5, the appropriate return code is
+   the case of failure, the return code, in MQTT v3.1, must be 0x80
+   indicating 'Failure'.  In MQTT v5, the appropriate return code is
    0x87, indicating that the client is 'Not authorized'.  Note that, in
    both MQTT versions, a reason code is returned for each topic filter.
-   Therefore, the client may receive success codes for a subset its
+   Therefore, the client may receive success codes for a subset of its
    topic filters, while being unauthorized for the rest.
 
 2.4.  Token expiration
@@ -697,17 +699,16 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    Section 8.2 of the ACE framework [I-D.ietf-ace-oauth-authz].  In the
    basic operation, token expirations MAY lead to disconnecting the
    associated client.  However, in MQTT v5 - OASIS Specification Draft
-   [MQTT-OASIS-Standard-v5], better authorization error handling and re-
-   authorization are possible.  This is explained in more detail in
-   Section 3.
+   [MQTT-OASIS-Standard-v5], better error handling and re-authentication
+   are possible.  This is explained in more detail in Section 3.
 
 2.5.  Handling disconnections and retained messages
 
    According to MQTT v3.1 - OASIS Standard [MQTT-OASIS-Standard], only
    Client DISCONNECT messages are allowed.  In MQTT v5 - OASIS
    Specification Draft [MQTT-OASIS-Standard-v5], server-side DISCONNECT
-   messages are possible, allowing to return 'Not Authorized' return
-   code to the client.
+   messages are possible, allowing to return '0x87 Not Authorized'
+   return code to the client.
 
    In the case of a DISCONNECT, due to the Clean Session flag, the
    broker deletes all session state but MUST keep the retained messages.
@@ -719,21 +720,21 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    disconnection, the broker MUST continue publishing the retained
    messages as long as the associated tokens are valid.
 
-   In case of disconnections due to network errors, or Server
-   disconnection due to a protocol error (which includes the
-   authorization errors), the Will message must be sent if the client
+   In case of disconnections due to network errors, or server
+   disconnection due to a protocol error (which includes authorization
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 13]
+Sengul, et al.           Expires April 16, 2018                [Page 13]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
-   supplied a Will in the CONNECT request message.  The token provided
-   in the CONNECT request must cover the Will topic.  The Will message
-   must be published to the Will topic when the network connection is
-   closed regardless of whether the corresponding token has expired.
+   errors), the Will message must be sent if the client supplied a Will
+   in the CONNECT request message.  The token provided in the CONNECT
+   request must cover the Will topic.  The Will message MUST be
+   published to the Will topic when the network connection is closed
+   regardless of whether the corresponding token has expired.
 
 3.  Improved Protocol Interactions with MQTT v5
 
@@ -743,20 +744,19 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    instance, the new enhanced authentication and re-authentication
    methods support a much wider range of authentication flows beyond
    username and password.  With the MQTT v5, there is a clearly defined
-   approach for using token-based approaches.  Similarly, in MQTT v5,
-   there is a clear flow for the RS to indicate that a token has expired
-   and the client to request a re-authentication.  Finally, MQTT v5
-   generally improves error reporting enabling better response to
-   authorization failures during publishing and forwarding of messages
-   to the subscribers.
+   approach for using token-based approaches.  Similarly, in MQTT v5, it
+   is possible for a client to request a re-authentication.  Finally,
+   MQTT v5 generally improves error reporting, enabling better response
+   to authorization failures during publishing and forwarding of
+   messages to the subscribers.
 
 3.1.  Token Transport via Authentication Exchange (AUTH)
 
    To initiate the authentication and authorization flow, as before, the
-   CAS initiates the token request as in Section 2.1.  and when the
-   client wishes to connect to the RS (broker), it uses the CONNECT
-   message of MQTT.  Figure 4 shows the structure of the MQTT CONNECT
-   control message used in MQTT v5.
+   CAS initiates the token request as in Section 2.1.  When the client
+   wishes to connect to the RS (broker), it uses the CONNECT message of
+   MQTT.  Figure 4 shows the structure of the MQTT CONNECT control
+   message used in MQTT v5.
 
           0            8            16            24            32
           +------------------------------------------------------+
@@ -776,23 +776,23 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
                Rsvd=Reserved, len.=length, Proto.=Protocol)
 
    To communicate the necessary connection parameters, the client uses
-   the appropriate flags of the CONNECT message.  TO achieve a clean
+   the appropriate flags of the CONNECT message.  To achieve a clean
    session (i.e., the session should start without an existing session),
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 14]
+Sengul, et al.           Expires April 16, 2018                [Page 14]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
    the new MQTT v5 session flags MUST be set appropriately.  More
-   specifically, the Clean Start Flag MUST be set to 1, and Session
-   Expiry Interval to 0.
+   specifically, the Clean Start Flag MUST be set to 1 and Session
+   Expiry Interval MUST be set to 0.
 
    With the enhanced authentication capabilities, it is no more
    necessary to overload the username and password fields in the CONNECT
-   message for ACE authentication.  For MQTT v5, the RS MUST support
+   message for ACE authentication.  Nevertheless, the RS MUST support
    both methods for supporting the token: (1) Token transport via
    username and password and (2) using the new AUTH (Authentication
    Exchange) method.  The token transport via username and password is
@@ -803,30 +803,30 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    password flag MUST be set to 0.  The client can set the
    Authentication Method as a property of a CONNECT packet by setting
    Auth Properties (with the property identifier 0x15).  The client must
-   support the AUTH method MUST set the UTF-8 encoded string containing
-   the name of the authentication method as 'ace_mqtt_tls'.  If the RS
-   does not support this profile, it sends a CONNACK with a Reason Code
-   of '0x8C (Bad authentication method)'
+   MUST set the UTF-8 encoded string containing the name of the
+   authentication method as 'ace_mqtt_tls'.  If the RS does not support
+   this profile, it sends a CONNACK with a Reason Code of '0x8C (Bad
+   authentication method)'
 
    Authentication Method is followed with Authentication Data, which has
-   a property identifier 0x16.  Authentication data is binary data, and
-   is defined by authentication method.  The RS MAY support different
-   implementations for transporting the token.  The first option is that
-   Authentication data contains both the token, and the keyed message
-   digest (MAC) or signature as described in Section 2.1.2.  In this
-   case, the token validation proceeds as described in Section 2.1.3 and
-   the the server responds with a CONNACK and a return code of '0x00
-   (Success)' if the authentication is successful.  In case of an
-   invalid PoP token, the CONNACK reason code is '0x87 (Not
-   Authorized)'.
+   a property identifier 0x16.  Authentication data is binary data and
+   is defined by the authentication method.  The RS MAY support
+   different implementations for transporting the authentication data.
+   The first option is that Authentication data contains both the token
+   and the keyed message digest (MAC) or signature as described in
+   Section 2.1.2.  In this case, the token validation proceeds as
+   described in Section 2.1.3 and the the server responds with a
+   CONNACK.  The reason code of the CONNACK '0x00 (Success)' if the
+   authentication is successful.  In case of an invalid PoP token, the
+   CONNACK reason code is '0x87 (Not Authorized)'.
 
    The second option that RS may accept is a challenge/response
    protocol.  If the Authentication Data only includes the token, the RS
-   MUST respond with an AUTH packet, with an Authenticate Reason Code
-   set to '0x18 (Continue Authentication)'.  This packet includes
+   MUST respond with an AUTH packet, with the Authenticate Reason Code
+   set to '0x18 (Continue Authentication)'.  This packet includes the
    Authentication Method, which MUST be set to 'ace_mqtt_tls' and
-   Authentication Data.  The Authentication Data MUST NOT be empty, and
-   includes a a challenge for the client.  The client responds to this
+   Authentication Data.  The Authentication Data MUST NOT be empty and
+   contains a challenge for the client.  The client responds to this
    with an AUTH packet, with a reason code '0x18 (Continue
    Authentication)'.  Similarly, the client packet sets the
    Authentication Method to 'ace_mqtt_tls'.  The Authentication Data in
@@ -837,7 +837,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 15]
+Sengul, et al.           Expires April 16, 2018                [Page 15]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -846,26 +846,26 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    (Not Authorized)'.
 
    Finally, this document allows the CONNECT message to have an empty
-   Authentication Data field.  This is the AS discovery option, and the
+   Authentication Data field.  This is the AS discovery option and the
    RS responds with a CONNACK reason code '0x87 (Not Authorized)' and
    includes a User Property set to the address of the AS.
 
-3.2.  Authorisation Errors and Client Re-authentication
+3.2.  Authorization Errors and Client Re-authentication
 
    MQTT v5 allows better error reporting.  To take advantage of this for
-   PUBLISH messages, the QoS level should be set to greater than 1.
-   This guarantees the RS to respond with either a PUBACK or PUBREC
-   packet.  In MQTT v5, the reason codes for these packets include '0x87
-   (Not authorized)'.  Similarly, in case of an authorization failure in
-   the SUBSCRIBE case, the SUBACK packet will have a reason code set to
-   '0x87 (Not authorized)' for the unauthorized topic(s).  When RS is
-   forwarding PUBLISH messages to subscribed clients, it may discover
-   that some of the subscribers are no more authorized due to expired
-   tokens.  In this case, the RS MAY send a DISCONNECT message with the
-   reason code '0x87 (Not authorized)' or MAY silently stop forwarding
-   messages to the subscribers.  The server-side DISCONNECT is a new
-   feature of MQTT v5 (in MQTT v3.1 server needed to drop the
-   connection).
+   PUBLISH messages, the QoS level should be set to greater than or
+   equal to 1.  This guarantees the RS to respond with either a PUBACK
+   or PUBREC packet, with a reason code '0x87 (Not authorized)' in the
+   case of an authorization error.  Similarly, for the SUBSCRIBE case,
+   the SUBACK packet will have a reason code set to '0x87 (Not
+   authorized)' for the unauthorized topic(s).  When RS is forwarding
+   PUBLISH messages to the subscribed clients, it may discover that some
+   of the subscribers are no more authorized due to expired tokens.  In
+   this case, the RS SHOULD send a DISCONNECT message with the reason
+   code '0x87 (Not authorized)'.  Note that the server-side DISCONNECT
+   is a new feature of MQTT v5 (in MQTT v3.1 server needed to drop the
+   connection).  RS MUST stop forwarding messages to these unauthorized
+   subscribers.
 
    In the case of a PUBACK with '0x87 (Not authorized)', the client can
    update its token using the Re-authentication feature of MQTT v5.
@@ -874,8 +874,8 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    AUTH packet with a reason code '0x19 (Re-authentication)'.  The
    client MUST send the authentication method as 'ace_mqtt_tls' and
    transports the new token in the Authentication Data.  The client and
-   the RS goes through the same steps for proof of possession validation
-   described in the previous section.  This flow ends with re-
+   the RS go through the same steps for proof of possession validation
+   described in the previous section.  This flow ends with either re-
    authentication is complete or re-authentication fails.  If the re-
    authentication fails, the server MUST send a DISCONNECT with the
    reason code '0x87 (Not Authorized)'.
@@ -893,7 +893,7 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 16]
+Sengul, et al.           Expires April 16, 2018                [Page 16]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -901,9 +901,8 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 6.  Privacy Considerations
 
    The privacy considerations outlined in [I-D.ietf-ace-oauth-authz]
-   apply to this work.  Furthermore, the RS is a central trusted party,
-   and may be forwarding potentially sensitive information between
-   clients.
+   apply to this work.  Furthermore, the RS is a central trusted party
+   and may forward potentially sensitive information between clients.
 
 7.  References
 
@@ -949,7 +948,8 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 17]
+
+Sengul, et al.           Expires April 16, 2018                [Page 17]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -981,18 +981,19 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
 Appendix A.  Checklist for profile requirements
 
-   o  AS discovery: For the basic protocol using MQTT v3.1, the clients/
-      client authorization servers need to be configured out-of-band.
-      RS does not provide any hints to help AS discovery.  AS discovery
-      is possible for the MQTT v5 described in Section 3.
+   o  AS discovery: For the basic protocol using either MQTT v3.1 or
+      MQTT v5, the clients/client authorization servers need to be
+      configured out-of-band.  RS does not provide any hints to help AS
+      discovery.  AS discovery is possible with the MQTT v5 extensions
+      described in Section 3.
 
    o  Communication protocol between the client and RS: MQTT
 
    o  Security protocol between the client and RS: TLS
 
    o  Client and RS mutual authentication: RS provides a server
-      certificate during TLS handshake.  Client uses token and MAC
-      fields in the MQTT connect message.
+      certificate during TLS handshake.  Client transports token and MAC
+      via the MQTT CONNECT message.
 
    o  Content format: For the HTTPS interactions with AS, "application/
       json".  The MQTT payloads may be formatted JSON or CBOR.
@@ -1004,8 +1005,7 @@ Appendix A.  Checklist for profile requirements
 
 
 
-
-Sengul, et al.           Expires April 15, 2018                [Page 18]
+Sengul, et al.           Expires April 16, 2018                [Page 18]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -1017,10 +1017,10 @@ Internet-Draft           MQTT-TLS profile of ACE            October 2017
    o  /authz-info endpoint: It MAY be supported using the method
       described in Appendix B, not protected.
 
-   o  Token transport: In MQTT CONNECT message or using the method
-      described in Appendix B.
+   o  Token transport: In MQTT CONNECT message or using the AUTH
+      extensions for MQTT v5 described in Section 3.
 
-Appendix B.  The `authorization information' endpoint
+Appendix B.  The authorization information endpoint
 
    The main document described a method for transporting tokens inside
    MQTT CONNECT messages.  In this section, we describe an alternative
@@ -1036,20 +1036,20 @@ Appendix B.  The `authorization information' endpoint
 
    In MQTT v3.1, after the client published to the "authz-info" topic,
    it is not possible for the broker to communicate the result of the
-   verification.  In MQTT v5, the broker can return 'Not authorized'
-   error to a PUBLISH request for QoS greater or equal to 1.  In any
-   case, any token authorization failure will affect the TLS handshake,
-   which can prompt the client to obtain a valid token.
+   token verification.  In MQTT v5, the broker can return 'Not
+   authorized' error to a PUBLISH request for QoS greater or equal to 1.
+   In any case, any token authorization failure will affect the TLS
+   handshake, which can prompt the client to obtain a valid token.
 
 Appendix C.  Document Updates
 
-   This new version updates the expired document (July 29, 2017)as
+   This new version updates the expired document (July 29, 2017) as
    follows:
 
    o  Adds Section 3 to describe improvements to the basic protocol
       operation with the new MQTT v5 - OASIS Specification Draft
       [MQTT-OASIS-Standard-v5], including improved authentication
-      exchange and error reporting
+      exchange and error reporting.
 
    o  Condenses background information specific to MQTT in Section 2.
 
@@ -1061,7 +1061,7 @@ Appendix C.  Document Updates
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 19]
+Sengul, et al.           Expires April 16, 2018                [Page 19]
 
 Internet-Draft           MQTT-TLS profile of ACE            October 2017
 
@@ -1075,8 +1075,8 @@ Authors' Addresses
 
    Cigdem Sengul
    Nominet
-   1 Sekforde Street
-   London  EC1R 0BE
+   2 Kingdom Street
+   London  W2 6BD
    UK
 
    Email: Cigdem.Sengul@nominet.uk
@@ -1117,4 +1117,4 @@ Authors' Addresses
 
 
 
-Sengul, et al.           Expires April 15, 2018                [Page 20]
+Sengul, et al.           Expires April 16, 2018                [Page 20]
