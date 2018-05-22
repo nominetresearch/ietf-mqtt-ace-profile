@@ -2,16 +2,16 @@
 
 This is the working area for the internet draft "MQTT-TLS profile of ACE".
 
-For the individual draft, see [https://tools.ietf.org/html/draft-sengul-ace-mqtt-tls-profile-00](https://tools.ietf.org/html/draft-sengul-ace-mqtt-tls-profile-00). 
+For the latest published draft see [https://tools.ietf.org/html/draft-sengul-ace-mqtt-tls-profile](https://tools.ietf.org/html/draft-sengul-ace-mqtt-tls-profile). 
 
 ## Building the Draft
 
-To generate draft-sengul-ace-mqtt-tls-profile-00.txt:  
+To generate _draft-sengul-ace-mqtt-tls-profile-00.txt_ (substitute version as appropriate):  
 ```bash 
 xml2rfc draft-sengul-ace-mqtt-tls-profile-00.xml 
 ```
 
-To generate draft-sengul-ace-mqtt-tls-profile-00.html
+To generate HTML version _draft-sengul-ace-mqtt-tls-profile-00.html_
 ```bash
 xml2rfc --html draft-sengul-ace-mqtt-tls-profile-00.xml
 ```
