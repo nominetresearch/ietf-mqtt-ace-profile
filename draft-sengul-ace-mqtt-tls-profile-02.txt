@@ -385,7 +385,7 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    permissions), the AS issues an access token (Figure 1 (B)).  The
    response includes the parameters described in Section 6.2 of the ACE
    framework [I-D.ietf-ace-oauth-authz].  This includes a token, which
-   is assumed to be PoP by default.  Hence, a 'cnf' parameter with a
+   is assumed to be Proof-of-Possession (PoP) token by default.  Hence,
 
 
 
@@ -394,12 +394,12 @@ Sengul, et al.          Expires December 7, 2018                [Page 7]
 Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
 
-   symmetric or asymmetric PoP key is returned.  The token may be a
-   reference, or a CBOR or JWT web token.  Note that the 'cnf' parameter
-   in the web tokens are to be consumed by the resource server and not
-   the client.  For more information on Proof of Possession semantics in
-   JWTs see RFC 7800 [RFC7800] and for CWTs, see Proof-of-Possession Key
-   Semantics for CBOR Web Tokens (CWTs)
+   a 'cnf' parameter with a symmetric or asymmetric PoP key is returned.
+   The token may be a reference, or a CBOR or JWT web token.  Note that
+   the 'cnf' parameter in the web tokens are to be consumed by the
+   resource server and not the client.  For more information on Proof of
+   Possession semantics in JWTs see RFC 7800 [RFC7800] and for CWTs, see
+   Proof-of-Possession Key Semantics for CBOR Web Tokens (CWTs)
    [I-D.ietf-ace-cwt-proof-of-possession].
 
    In the case of an error, the AS returns error responses for HTTP-
