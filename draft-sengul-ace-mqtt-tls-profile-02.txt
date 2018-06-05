@@ -517,12 +517,12 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    associated with the access token for proof-of-possession.  The client
    MAY apply the PoP key either to the token or the entire request by
    computing a keyed message digest (for symmetric key) or a digital
-   signature (for asymmetric key).  (The access token is base64 encoded
-   to be used in the Username field, which is a UTF-8 encoded string.
-   The Username field is prefixed with a two-byte length field, and can
-   have any length in the range of 0 and 65535.  The password field
-   contains 0 to 65535 bytes of binary data, prefixed by a two-byte
-   length field.)
+   signature (for asymmetric key).  (The access token, if binary, is
+   base64 encoded to be used in the Username field, which is a UTF-8
+   encoded string.  The Username field is prefixed with a two-byte
+   length field, and can have any length in the range of 0 and 65535.
+   The password field contains 0 to 65535 bytes of binary data, prefixed
+   by a two-byte length field.)
 
 2.1.3.  Token validation
 
@@ -562,11 +562,12 @@ Sengul, et al.          Expires December 7, 2018               [Page 10]
 Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
 
-   The broker MAY cache the introspection result because it will need to
-   decide whether to accept subsequent PUBLISH and SUBSCRIBE messages
-   and these messages, which are sent after a connection is set-up, do
-   not contain tokens.  If the introspection result is not cached, then
-   the RS needs to introspect the saved token for each request.
+   If the broker uses token introspection, it MAY cache the validation
+   result to decide whether to accept subsequent PUBLISH and SUBSCRIBE
+   messages as these messages, which are sent after a connection is set-
+   up, do not contain tokens.  If the introspection result is not
+   cached, then the RS will need to introspect the saved token for each
+   request.
 
    Note: Scope strings MAY follow an application specific convention.
    One option is to encode the permission and the topics it applies to
@@ -609,7 +610,6 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    message (i.e., PUBLISH) and the topic name in the message header to
    compare against the cached token or its introspection result
    (depending on the implementation, different fields of the token or
-
 
 
 

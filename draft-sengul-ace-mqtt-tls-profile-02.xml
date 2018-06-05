@@ -522,7 +522,7 @@
 			<!--In addition, <xref target="MQTTv5"></xref>
 			describes request-response protocol, which is possible under MQTT v5 and enables 
 			the RS to send a challenge to the client. -->
-                        (The access token is base64 encoded to be used in the Username field, which is a UTF-8 encoded string. The Username
+                        (The access token, if binary, is base64 encoded to be used in the Username field, which is a UTF-8 encoded string. The Username
 			field is prefixed with a two-byte length field, and can have any length in the range of 0 and 65535. 
 			The password field contains 0 to 65535 bytes of binary data, 
 			 prefixed by a two-byte length field.)
@@ -563,10 +563,10 @@
 		    </t>	
 			
                     <t>
-                        The broker MAY cache the introspection result because it will need to decide whether to accept
-                        subsequent PUBLISH and SUBSCRIBE messages and
+                        If the broker uses token introspection, it MAY cache the validation result to decide whether to accept
+                        subsequent PUBLISH and SUBSCRIBE messages as
                         these messages, which are sent after a connection is set-up, do not contain tokens.
-                        If the introspection result is not cached, then the RS needs to introspect the saved token for
+                        If the introspection result is not cached, then the RS will need to introspect the saved token for
                         each request.
                     </t>
 		    <t>
