@@ -92,9 +92,9 @@ Table of Contents
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
      7.2.  Informative References  . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Checklist for profile requirements . . . . . . . . .  18
+   Appendix A.  Checklist for profile requirements . . . . . . . . .  19
    Appendix B.  The authorization information endpoint . . . . . . .  19
-   Appendix C.  Document Updates . . . . . . . . . . . . . . . . . .  19
+   Appendix C.  Document Updates . . . . . . . . . . . . . . . . . .  20
    Acknowledgements  . . . . . . . . . . . . . . . . . . . . . . . .  20
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
@@ -884,9 +884,9 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
 4.  IANA Considerations
 
-   This memo includes no request to IANA.
-
-
+   The following registrations are done for the ACE OAuth Profile
+   Registry following the procedure specified in
+   [I-D.ietf-ace-oauth-authz].
 
 
 
@@ -897,6 +897,22 @@ Sengul, et al.          Expires December 7, 2018               [Page 16]
 
 Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
+
+   Note to the RFC editor: Please replace all occurrences of "[RFC-
+   XXXX]" with the RFC number of this specification and delete this
+   paragraph.
+
+   Profile name: mqtt_tls
+
+   Profile description: Profile for delegating client authentication and
+   authorization using MQTT as the application protocol and TLS For
+   transport layer security.
+
+   Profile ID:
+
+   Change controller: IESG
+
+   Reference: [RFC-XXXX]
 
 5.  Security Considerations
 
@@ -927,6 +943,17 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
               Framework (ACE-OAuth)", draft-ietf-ace-oauth-authz-12
               (work in progress), May 2018.
 
+
+
+
+
+
+
+Sengul, et al.          Expires December 7, 2018               [Page 17]
+
+Internet-Draft           MQTT-TLS profile of ACE               June 2018
+
+
    [MQTT-OASIS-Standard]
               Banks, A., Ed. and R. Gupta, Ed., "OASIS Standard MQTT
               Version 3.1.1 Plus Errata 01", 2015, <http://docs.oasis-
@@ -946,13 +973,6 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-Sengul, et al.          Expires December 7, 2018               [Page 17]
-
-Internet-Draft           MQTT-TLS profile of ACE               June 2018
-
 
 7.2.  Informative References
 
@@ -983,6 +1003,13 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
               RFC 6749, DOI 10.17487/RFC6749, October 2012,
               <https://www.rfc-editor.org/info/rfc6749>.
 
+
+
+Sengul, et al.          Expires December 7, 2018               [Page 18]
+
+Internet-Draft           MQTT-TLS profile of ACE               June 2018
+
+
    [RFC7800]  Jones, M., Bradley, J., and H. Tschofenig, "Proof-of-
               Possession Key Semantics for JSON Web Tokens (JWTs)",
               RFC 7800, DOI 10.17487/RFC7800, April 2016,
@@ -999,16 +1026,6 @@ Appendix A.  Checklist for profile requirements
    o  The communication protocol between the client and RS: MQTT
 
    o  The security protocol between the client and RS: TLS
-
-
-
-
-
-
-Sengul, et al.          Expires December 7, 2018               [Page 18]
-
-Internet-Draft           MQTT-TLS profile of ACE               June 2018
-
 
    o  Client and RS mutual authentication: RS provides a server
       certificate during TLS handshake.  Client transports token and MAC
@@ -1041,6 +1058,14 @@ Appendix B.  The authorization information endpoint
    The method consists of the MQTT broker accepting PUBLISH messages to
    a public "authz-info" topic.  A client using this method MUST first
    connect to the broker, and publish the access token using the "authz-
+
+
+
+Sengul, et al.          Expires December 7, 2018               [Page 19]
+
+Internet-Draft           MQTT-TLS profile of ACE               June 2018
+
+
    info" topic.  The broker must verify the validity of the token (i.e.,
    through local validation or introspection).  After publishing the
    token, the client disconnects from the broker and is expected to try
@@ -1056,15 +1081,6 @@ Appendix B.  The authorization information endpoint
 Appendix C.  Document Updates
 
    Version 01 updates Version 00 as follows:
-
-
-
-
-
-Sengul, et al.          Expires December 7, 2018               [Page 19]
-
-Internet-Draft           MQTT-TLS profile of ACE               June 2018
-
 
    o  Adds Section 3 to describe improvements to the basic protocol
       operation with the new MQTT v5 - OASIS Specification Draft
@@ -1092,6 +1108,20 @@ Acknowledgements
 
 Authors' Addresses
 
+
+
+
+
+
+
+
+
+
+Sengul, et al.          Expires December 7, 2018               [Page 20]
+
+Internet-Draft           MQTT-TLS profile of ACE               June 2018
+
+
    Cigdem Sengul
    Nominet
    2 Kingdom Street
@@ -1110,18 +1140,6 @@ Authors' Addresses
    Email: Anthony.Kirby@nominet.uk
 
 
-
-
-
-
-
-
-
-Sengul, et al.          Expires December 7, 2018               [Page 20]
-
-Internet-Draft           MQTT-TLS profile of ACE               June 2018
-
-
    Paul Fremantle
    University of Portsmouth
    School of Computing, Buckingham House
@@ -1129,24 +1147,6 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    UK
 
    Email: paul.fremantle@port.ac.uk
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -840,7 +840,18 @@
 
         <!-- Possibly a 'Acknowledgements'/ 'Contributors' section ... -->
         <section anchor="IANA" title="IANA Considerations">
-            <t>This memo includes no request to IANA.</t>
+          <t>The following registrations are done for the ACE OAuth Profile Registry following the procedure specified in
+	  <xref target="I-D.ietf-ace-oauth-authz"></xref>.
+	  </t>
+	  <t>Note to the RFC editor: Please replace all occurrences of "[RFC-XXXX]" with the RFC number of this specification
+	  and delete this paragraph. 
+	  </t>
+	  <t>Profile name: mqtt_tls</t>
+	  <t>Profile description: Profile for delegating client authentication and authorization using MQTT as the application protocol
+	  and TLS For transport layer security.</t>
+	  <t>Profile ID: </t>
+	  <t>Change controller: IESG </t>
+	  <t>Reference: [RFC-XXXX]</t>
         </section>
 
         <section anchor="Security" title="Security Considerations">
