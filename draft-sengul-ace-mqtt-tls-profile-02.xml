@@ -801,8 +801,8 @@
 
 	    <t>
 	      Finally, this document allows the CONNECT message to have an empty Authentication Data field. This is the AS discovery option
-	      and the RS responds with a CONNACK reason code '0x87 (Not Authorized)' and includes a User Property set to the address
-	      of the AS. 
+	      and the RS responds with a CONNACK reason code '0x87 (Not Authorized)' and includes a User Property for the AS information.
+	      AS Information contains the absolute URI of AS, and MAY also contain a nonce as defined in the Section 5.1.2 of <xref target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>. 
 	    </t>
 
 	    

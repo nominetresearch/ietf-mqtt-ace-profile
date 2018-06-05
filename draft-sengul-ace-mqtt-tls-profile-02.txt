@@ -87,7 +87,7 @@ Table of Contents
      3.1.  Token Transport via Authentication Exchange (AUTH)  . . .  14
      3.2.  Authorization Errors and Client Re-authentication . . . .  16
    4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
    6.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .  17
    7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
      7.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
@@ -849,7 +849,10 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    Finally, this document allows the CONNECT message to have an empty
    Authentication Data field.  This is the AS discovery option and the
    RS responds with a CONNACK reason code '0x87 (Not Authorized)' and
-   includes a User Property set to the address of the AS.
+   includes a User Property for the AS information.  AS Information
+   contains the absolute URI of AS, and MAY also contain a nonce as
+   defined in the Section 5.1.2 of the ACE framework
+   [I-D.ietf-ace-oauth-authz].
 
 3.2.  Authorization Errors and Client Re-authentication
 
@@ -883,10 +886,7 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
    This memo includes no request to IANA.
 
-5.  Security Considerations
 
-   The security considerations outlined in [I-D.ietf-ace-oauth-authz]
-   apply to this work.
 
 
 
@@ -897,6 +897,11 @@ Sengul, et al.          Expires December 7, 2018               [Page 16]
 
 Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
+
+5.  Security Considerations
+
+   The security considerations outlined in [I-D.ietf-ace-oauth-authz]
+   apply to this work.
 
 6.  Privacy Considerations
 
@@ -941,11 +946,6 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
-
-
-
-
-
 
 
 
