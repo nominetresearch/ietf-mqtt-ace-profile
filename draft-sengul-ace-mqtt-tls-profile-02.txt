@@ -313,8 +313,8 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    [I-D.ietf-ace-oauth-authz].
 
    Figure 1 shows the basic protocol flow during connection
-   establishment.
-
+   establishment.  The step (C), client on-boarding, is out of the scope
+   of this document.  Steps (E) and (F) are optional.
 
 
 
@@ -408,29 +408,29 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
 2.1.2.  Client connection request to the broker
 
-   Client on-boarding (Figure 1 (C)) is out of the scope of this
-   document.  Once the client acquires the token, it can use it to
-   request an MQTT connection to the broker over a TLS session with
-   server authentication (Figure 1 (D)).  This section describes the
-   client transporting the token to the broker (RS) via the CONNECT
-   control message after the TLS handshake.  This is similar to an
-   earlier proposal by Fremantle et al. [fremantle14].  An improvement
-   to this is presented in Section 3 for the MQTT v5 - the OASIS
-   Specification Draft [MQTT-OASIS-Standard-v5].  Alternatively, the
-   token may be used for the TLS session establishment as described in
-   the DTLS profile for ACE [I-D.gerdes-ace-dtls-authorize].  In this
-   case, both the TLS PSK and RPK handshakes MAY be supported.  This may
-   additionally require that the client transports the token to the
-   broker before the connection establishment.  To this end, the broker
-   MAY support /authz-info endpoint via the "authz-info" topic.  Then,
-   to transport the token, clients publish to "authz-info" topic
-   unauthorized.  The topic "authz-info" MUST be publish-only for
-   clients (i.e., the clients are not allowed to subscribe to it).  This
-   option is described in more detail in Appendix B.
+   Once the client acquires the token, it can use it to request an MQTT
+   connection to the broker over a TLS session with server
+   authentication (Figure 1 (D)).  This section describes the client
+   transporting the token to the broker (RS) via the CONNECT control
+   message after the TLS handshake.  This is similar to an earlier
+   proposal by Fremantle et al. [fremantle14].  An improvement to this
+   is presented in Section 3 for the MQTT v5 - the OASIS Specification
+   Draft [MQTT-OASIS-Standard-v5].  Alternatively, the token may be used
+   for the TLS session establishment as described in the DTLS profile
+   for ACE [I-D.gerdes-ace-dtls-authorize].  In this case, both the TLS
+   PSK and RPK handshakes MAY be supported.  This may additionally
+   require that the client transports the token to the broker before the
+   connection establishment.  To this end, the broker MAY support
+   /authz-info endpoint via the "authz-info" topic.  Then, to transport
+   the token, clients publish to "authz-info" topic unauthorized.  The
+   topic "authz-info" MUST be publish-only for clients (i.e., the
+   clients are not allowed to subscribe to it).  This option is
+   described in more detail in Appendix B.
 
    When the client wishes to connect to the broker, it uses the CONNECT
    message of MQTT.  Figure 2 shows the structure of the MQTT CONNECT
    control message.
+
 
 
 

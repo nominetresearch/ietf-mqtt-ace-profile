@@ -368,7 +368,8 @@
                 </t>
                 <t>
                     <xref target="basic_protocol_flow"></xref> shows the basic protocol flow during connection
-                    establishment.
+                    establishment. The step (C), client on-boarding, is out of the scope of this document.
+		    Steps (E) and (F) are optional.
                 </t>
                 <figure align="center" anchor="basic_protocol_flow" title="Connection establishment">
                     <artwork align="left"><![CDATA[
@@ -434,7 +435,6 @@
                 </section>
                 <section title="Client connection request to the broker" anchor="connect_v31">
                   <t>
-		        Client on-boarding (Figure 1 (C)) is out of the scope of this document.
                         Once the client acquires the token, it can use it to request an MQTT connection to the broker
                         over a TLS session with server authentication (Figure 1 (D)). 
                         This section describes the client transporting the token to the broker (RS) via the CONNECT
