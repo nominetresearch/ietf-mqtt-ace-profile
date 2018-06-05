@@ -512,15 +512,17 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
 
    The CONNECT message defaults to ACE for authentication and
    authorization.  For the basic operation described in this section,
-   the Username field MUST be set to the token.  The Password field MUST
-   be set to the keyed message digest (MAC) or signature.  The client
+   the Username field MUST be set to the access token.  The Password
+   field MUST be set to the keyed message digest (MAC) or signature
+   associated with the access token for proof-of-possession.  The client
    MAY apply the PoP key either to the token or the entire request by
    computing a keyed message digest (for symmetric key) or a digital
-   signature (for asymmetric key).  (The Username field is a UTF-8
-   encoded string, which is prefixed with a two-byte length field and
-   can have any length in the range of 0 and 65535.  Similarly, the
-   password field contains 0 to 65535 bytes of binary data, prefixed by
-   a two-byte length field.)
+   signature (for asymmetric key).  (The access token is base64 encoded
+   to be used in the Username field, which is a UTF-8 encoded string.
+   The Username field is prefixed with a two-byte length field, and can
+   have any length in the range of 0 and 65535.  The password field
+   contains 0 to 65535 bytes of binary data, prefixed by a two-byte
+   length field.)
 
 2.1.3.  Token validation
 
@@ -552,8 +554,6 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    result) to determine the publish and subscribe permissions for the
    client.  If the Will flag is set, then the broker MUST check that the
    token allows the publication of the Will message too.
-
-
 
 
 
