@@ -190,8 +190,8 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    The term "endpoint" is used following its OAuth definition, to denote
    resources such as /token and /introspect at the AS.
 
-   The term "Resource" is used to refer to an MQTT "topic", which is
-   defined in Section 1.2.  Hence, the "Resource Owner" is any entity
+   The term "Resource" is used to refer to an MQTT "topic name", which
+   is defined in Section 1.3.  Hence, the "Resource Owner" is any entity
    that can authoritatively speak for the "topic".
 
    Certain security-related terms such as "authentication",
