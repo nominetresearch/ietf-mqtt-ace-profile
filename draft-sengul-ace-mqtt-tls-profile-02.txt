@@ -565,7 +565,7 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    If the broker uses token introspection, it MAY cache the validation
    result to decide whether to accept subsequent PUBLISH and SUBSCRIBE
    messages as these messages, which are sent after a connection is set-
-   up, do not contain tokens.  If the introspection result is not
+   up, do not contain access tokens.  If the introspection result is not
    cached, then the RS will need to introspect the saved token for each
    request.
 
