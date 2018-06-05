@@ -697,9 +697,9 @@ Internet-Draft           MQTT-TLS profile of ACE               June 2018
    check for token expiration on receiving a PINGREQUEST message.  This
    may allow for early detection of a token expiry.
 
-   The token validation is done either by checking the 'exp' claim of a
-   CWT/JWT or via performing an introspection request with the
-   Authorization server as described in Section 8.2 of the ACE framework
+   The token expiration is checked by checking the 'exp' claim of a CWT/
+   JWT or via performing an introspection request with the Authorization
+   server as described in Section 8.2 of the ACE framework
    [I-D.ietf-ace-oauth-authz].  In the basic operation, token
    expirations MAY lead to disconnecting the associated client.
    However, in MQTT v5 - the OASIS Specification Draft

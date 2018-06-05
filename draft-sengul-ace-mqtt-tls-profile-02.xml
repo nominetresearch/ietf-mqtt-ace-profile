@@ -676,7 +676,7 @@
 		    for early detection of a token expiry. 
 		</t>
 		 <t>     
-                    The token validation is done either by checking the 'exp' claim of a CWT/JWT or via performing an
+                    The token expiration is checked by checking the 'exp' claim of a CWT/JWT or via performing an
                     introspection request with the Authorization server as described in Section 8.2 of <xref
                         target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
                     In the basic operation, token expirations MAY lead to disconnecting the associated client.
