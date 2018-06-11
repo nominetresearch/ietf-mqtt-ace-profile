@@ -522,10 +522,8 @@
 			<!--In addition, <xref target="MQTTv5"></xref>
 			describes request-response protocol, which is possible under MQTT v5 and enables 
 			the RS to send a challenge to the client. -->
-                        (The access token, if binary, is base64 encoded to be used in the Username field, which is a UTF-8 encoded string. The Username
-			field is prefixed with a two-byte length field, and can have any length in the range of 0 and 65535. 
-			The password field contains 0 to 65535 bytes of binary data, 
-			 prefixed by a two-byte length field.)
+                        (MQTT defines the Username and Password fields as a 2-byte length followed by a UTF-8 encoded string, 
+                        so the access token MUST be encoded via BASE-64 if it is binary or not valid UTF-8.)
                     </t>
 
                 </section>
