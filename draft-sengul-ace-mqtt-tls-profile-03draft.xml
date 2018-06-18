@@ -742,7 +742,7 @@
        | Proto.level=5|Connect flags|          Keep alive     |
        +------------------------------------------------------+
        |                 Property length                      |
-       | 	      Auth. Method (0x15) | 'ace_mqtt_tls'    |
+       |          Auth. Method (0x15) | 'ace_mqtt_tls'        |
        |          Auth. Data (0x16)   | empty or token        | 
        |                                                      |
        +------------------------------------------------------+
