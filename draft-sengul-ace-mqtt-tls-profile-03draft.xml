@@ -168,7 +168,7 @@
                 communication security between entities.
                 The basic protocol interactions follow  <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>.
 		In addition, this document describes improvements to the basic protocol with the new
-		<xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification Draft</xref> (e.g., improved authentication
+		<xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref> (e.g., improved authentication
 	        exchange and error reporting). Both versions are expected to be supported in practice, and therefore, covered
 		in this document.
             </t>
@@ -218,7 +218,7 @@
 	    <t>
 	      In <xref target="basic-protocol"></xref>, these exchanges are described based on the
 	      <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>. These exchanges are also supported by the
-	      new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification Draft</xref>. 
+	      new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>. 
 	      <xref target="MQTTv5"></xref> describes how they 
 	      may be improved by the new MQTT v5. 
 	    </t>
@@ -256,7 +256,7 @@
                 <t>
                     The document describes message exchanges as MQTT protocol interactions. For additional information,
                     please refer to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref> or the
-		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification Draft</xref>.
+		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>.
                 </t>
                 <t>
                     <list hangIndent="8" style="hanging">
@@ -335,8 +335,8 @@
         <section title="Basic Protocol Interactions" anchor="basic-protocol">
           <t> This section describes the following exchanges between publisher and subscriber clients, the broker, and
 	  the authorization server according to the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>.
-	  These exchanges are compatible also with the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-	  Draft</xref>. In addition,  <xref target="MQTTv5"></xref> describes how these exchanges may be improved with the
+	  These exchanges are compatible also with the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification
+	  </xref>. In addition,  <xref target="MQTTv5"></xref> describes how these exchanges may be improved with the
 	  MQTT v5.  
             </t>
             <t>
@@ -441,7 +441,7 @@
                         This section describes the client transporting the token to the broker (RS) via the CONNECT
                         control message after the TLS handshake. This is similar to an earlier proposal by Fremantle et 
                         al. <xref target="fremantle14"></xref>. An improvement to this is presented in  <xref target="MQTTv5"></xref>
-                        for the <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification Draft</xref>.
+                        for the <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>.
                         Alternatively, the token may be used for the TLS session establishment as described in
                         the <xref target="I-D.gerdes-ace-dtls-authorize">DTLS profile for ACE</xref>. In this case, both
                         the TLS PSK and RPK handshakes MAY be supported.
@@ -594,14 +594,13 @@
                     </t>
                     <t>
                         The broker responses may follow either the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref> or the
-		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification Draft</xref>, depending on which version(s) the broker supports.
+		    <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>, depending on which version(s) the broker supports.
                     </t>
 		    <t>
                       In <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>, it is not possible to support AS discovery via sending a tokenless
 		      CONNECT message to the broker.
                         This is because a CONNACK packet does not include a means to provide additional information to the client.
-			Therefore, AS discovery needs to take place out-of-band. This is remedied in the <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-			Draft</xref> and a solution is described in <xref target="MQTTv5"></xref>.
+			Therefore, AS discovery needs to take place out-of-band. This is remedied in the <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref> and a solution is described in <xref target="MQTTv5"></xref>.
                     </t>
                     <t>
                         If the RS accepts the connection, it MUST store the token.
@@ -628,8 +627,7 @@
 		       Otherwise, it
                         MUST ignore the PUBLISH message. Also, 
                         DISCONNECT messages are only sent from a client to the broker. So, server disconnection
-                        needs to take place below the application layer. However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-			Draft</xref>, it is possible to indicate failure and provide a reason code. <xref target="MQTTv5"></xref> describes in more detail how
+                        needs to take place below the application layer. However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>, it is possible to indicate failure and provide a reason code. <xref target="MQTTv5"></xref> describes in more detail how
 			PUBLISH authorization errors are handled.   
                     </t>
                     
@@ -650,8 +648,7 @@
                         In the <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>, the MQTT
                         DISCONNECT messages are only sent from a client to the broker.
                         Therefore, the server disconnection needs to take place below the application layer.
-			In <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-			Draft</xref>, a server-side DISCONNECT message is possible and described in <xref target="MQTTv5"></xref>. 
+			In <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>, a server-side DISCONNECT message is possible and described in <xref target="MQTTv5"></xref>. 
 			
                     </t>
                 </section>
@@ -688,16 +685,14 @@
                     introspection request with the Authorization server as described in Section 8.2 of <xref
                         target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.
                     In the basic operation, token expirations MAY lead to disconnecting the associated client.
-		    However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-		    Draft</xref>, better error handling and re-authentication are possible.
+		    However, in <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>, better error handling and re-authentication are possible.
 		    This is explained in more detail in <xref target="MQTTv5"></xref>.   
                 </t>
             </section>
             <section title="Handling disconnections and retained messages" anchor="disconnections">
                 <t>
                     According to <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>, only Client
-                    DISCONNECT messages are allowed. In <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
-                        Draft</xref>,  server-side DISCONNECT messages are possible, allowing to return '0x87 Not Authorized' return code
+                    DISCONNECT messages are allowed. In <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>,  server-side DISCONNECT messages are possible, allowing to return '0x87 Not Authorized' return code
                     to the client.
                  </t>
                  <t>
@@ -722,7 +717,7 @@
 
 	<section anchor="MQTTv5" title="Improved Protocol Interactions with MQTT v5">
 	   <t>
-	    In the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Specification
+	    In the new <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification
             Draft</xref>, several new capabilities are introduced, which enable better integration with the ACE standards.
 	    The newly enhanced authentication and re-authentication methods support a much wider range of authentication flows
 	    beyond username and password. With the MQTT v5, there is a 
@@ -863,13 +858,32 @@
         </section>
 
         <section anchor="Security" title="Security Considerations">
-            <t> The security considerations outlined in <xref target="I-D.ietf-ace-oauth-authz"></xref> apply to this work.</t>
+
+	  <t> This document specifies a profile for the Authentication and Authorization for Constrained Environments (ACE) framework
+	   <xref target="I-D.ietf-ace-oauth-authz"></xref>. Therefore, the security considerations outlined in <xref target="I-D.ietf-ace-oauth-authz"></xref> apply to this work.</t>
+	  <t> In addition, the security considerations outlined in  <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>
+	  apply.  Mainly, this document provides an authorization solution for MQTT, the responsibility of which is left to the specific implementation in  <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>.
+	 In the following, we comment on a few relevant
+	 issues based on the MQTT v5 specification.
+	  </t>
+
+	  <t>In this document, RS uses PoP access token to authenticate the client. If the client is able, TLS Certificates
+	  sent from the client can be used by the RS to authenticate the client. The TLS certificate from the RS MUST be used by the Client  to authenticate the RS.
+	  </t>
+
+	  <t>To authorize a client's publish and subscribe requests in an ongoing session, the RS caches the access token after accepting the connection from the client. In the meantime, if some permissions are revoked, RS may still grant publish/subscribe to revoked topics until the session ends or the token expires. When permissions change dynamically, it is expected that AS follows a reasonable expiration strategy for the access tokens.   
+	  </t>
+	 
+	  <t> RS may monitor client behaviour to detect potential security problems. These include repeated token transfer attempts to the public "authz-info" topic, repeated connection attempts, abnormal terminations, and clients that connect but do not send any data.
+	  If the RS supports the public "authz-info" topic, described in <xref target="app-authzinfo"></xref>, then this may be vulnerable to a DDoS attack, where many clients use the "authz-info" public topic to transport random tokens, which RS may need to store indefinitely.</t>
+
         </section>
 
         <section anchor="Privacy" title="Privacy Considerations">
           <t>The privacy considerations outlined in <xref target="I-D.ietf-ace-oauth-authz"></xref> apply to this work.
-          Furthermore, the RS is a central trusted party and may forward potentially sensitive information
-	  between clients. 
+          </t>
+	  <t>In MQTT, the RS is a central trusted party and may forward potentially sensitive information
+	  between clients. Clients may choose to encrypt the payload of their messages. However, this would not provide privacy for other properties of the message such as topic name. 
 	  </t>
         </section>
 
@@ -918,7 +932,7 @@
 		       target="http://docs.oasis-open.org/mqtt/mqtt/v5.0/csprd01/mqtt-v5.0-csprd01.html">
 	       <front>
 		 <title>
-		   OASIS Public Review Draft 01 MQTT Version 5.0
+		   OASIS MQTT Version 5.0 Committee Specification 02
 		 </title>
 		 <author initials="A." surname="Banks" role="editor">
 		   <organization>IBM</organization>
@@ -1021,7 +1035,7 @@
 	    Version 01 updates Version 00 as follows:
 	    <list style="symbols">
 	      <t>  Adds <xref target="MQTTv5"></xref> to describe improvements to the basic protocol operation with the new
-		<xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Specification Draft</xref>, including improved authentication
+		<xref target="MQTT-OASIS-Standard-v5">MQTT v5 - OASIS Committee Specification</xref>, including improved authentication
 	      exchange and error reporting.</t>
 	      <t> Condenses background information specific to MQTT in <xref target="basic-protocol"></xref>.</t>
 	      <t> Clarifies token transport and token structure in <xref target="connect_v31"></xref>
