@@ -578,13 +578,13 @@
                         each request.
                     </t>
 		    <t>
-                Note: Scope strings MAY follow an application specific convention. One option is to encode
-                the permission and the topics it applies to the scope string e.g., 'publish_topic1' or 'subscribe_topic2'.
-		      A second option is to simply use the keywords 'publish' or 'subscribe' as scope strings and use the 'aud'
-		      field to define the topic. Another option is to use topic names as scope strings and use the 'aud' field
-		      to define whether the 'publish' or 'subscribe' permission applies to these scopes.
-		      The choice is left to the implementer and depends on how the following trade-off is expected to be handled:
-		      token simplicity versus the number of tokens the broker is expected to handle per client.
+                      Scope strings SHOULD follow be encoded as permission, followed by underscore, followed by topic name.
+		      There are two permissions applying to topics: 'publish' and 'subscribe'. 
+		      An example scope field may contain space delimited such strings, e.g., 'publish_topic1 subscribe_topic2'.
+		      Hence, this access token would give 'publish' permission to the 'topic1' and
+		      'subscribe' permission to 'topic2'.
+		 If there is a single RS, then scope strings MAY be simply the keywords 'publish' or 'subscribe' and the 'aud'
+		 field in the access token MAY be used to define the topic. 
 		    </t>  
                 </section>
                 <section title="The broker's response to client connection request">
@@ -615,7 +615,7 @@
                         On receiving the PUBLISH message, the broker MUST use the type of
                         message (i.e., PUBLISH) and the topic name in the message header to compare against the
                         cached token or its introspection result (depending on the implementation, different fields of the token or the introspection
-			result may be checked, see the Note in <xref target="token_validation"></xref>).
+			result may be checked, see <xref target="token_validation"></xref>).
                     </t>
                     <t>
                        If the client is allowed to publish to the topic, the RS must publish the message to all valid subscribers of the topic. The broker
@@ -666,7 +666,7 @@
                     On receiving the SUBSCRIBE message, the broker MUST use the type of message (i.e.,
                     SUBSCRIBE) and the topic filter in the message header to compare
                     against the stored token or introspection result (depending on the implementation, different fields of the token or introspection
-		    result may be checked, see the Note in <xref target="token_validation"></xref>).
+		    result may be checked, see <xref target="token_validation"></xref>).
                 </t>
                 <t>
                     As a response to the SUBSCRIBE message, the broker issues a SUBACK message. For each topic filter,
@@ -1039,7 +1039,8 @@
 	  <t>
 	    Version 03 updates Version 02 as follows:
 	    <list style="symbols">
-	      <t> TODO are any changes we made so far in 03 worthy of note? </t>
+	      <t> Requirements language fixed according to the new IETF recommendation. </t>
+	      <t> The use of audience and scopes claims in access tokens has been clarified.</t>
 	    </list>
 	  </t> 
 	</section>
