@@ -580,7 +580,7 @@
 		    <t>
                       Scope strings SHOULD follow be encoded as permission, followed by underscore, followed by topic name.
 		      There are two permissions applying to topics: 'publish' and 'subscribe'. 
-		      An example scope field may contain space delimited such strings, e.g., 'publish_topic1 subscribe_topic2'.
+		      An example scope field may contain multiple such strings, space delimited e.g., 'publish_topic1 subscribe_topic2'.
 		      Hence, this access token would give 'publish' permission to the 'topic1' and
 		      'subscribe' permission to 'topic2'.
 		 If there is a single RS, then scope strings MAY be simply the keywords 'publish' or 'subscribe' and the 'aud'
