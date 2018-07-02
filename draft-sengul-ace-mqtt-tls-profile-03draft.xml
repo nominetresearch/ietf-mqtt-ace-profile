@@ -871,7 +871,7 @@
 	  sent from the client can be used by the RS to authenticate the client. The TLS certificate from the RS MUST be used by the client  to authenticate the RS.
 	  </t>
 
-	  <t>To authorize a client's publish and subscribe requests in an ongoing session, the RS caches the access token after accepting the connection from the client. In the meantime, if some permissions are revoked, RS may still grant publish/subscribe to revoked topics until the session ends or the token expires. When permissions change dynamically, it is expected that AS follows a reasonable expiration strategy for the access tokens.   
+	  <t>To authorize a client's publish and subscribe requests in an ongoing session, the RS caches the access token after accepting the connection from the client. However, if some permissions are revoked in the meantime, the RS may still grant publish/subscribe to revoked topics until the session ends or the token expires. When permissions change dynamically, it is expected that AS follows a reasonable expiration strategy for the access tokens.   
 	  </t>
 	 
 	  <t> RS may monitor client behaviour to detect potential security problems. These include repeated token transfer attempts to the public "authz-info" topic, repeated connection attempts, abnormal terminations, and clients that connect but do not send any data.
