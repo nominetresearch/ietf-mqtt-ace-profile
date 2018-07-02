@@ -867,8 +867,8 @@
 	 issues based on the MQTT v5 specification.
 	  </t>
 
-	  <t>In this document, RS uses PoP access token to authenticate the client. If the client is able, TLS Certificates
-	  sent from the client can be used by the RS to authenticate the client. The TLS certificate from the RS MUST be used by the Client  to authenticate the RS.
+	  <t>In this document, RS uses PoP access token to authenticate the client. If the client is able, TLS certificates
+	  sent from the client can be used by the RS to authenticate the client. The TLS certificate from the RS MUST be used by the client  to authenticate the RS.
 	  </t>
 
 	  <t>To authorize a client's publish and subscribe requests in an ongoing session, the RS caches the access token after accepting the connection from the client. In the meantime, if some permissions are revoked, RS may still grant publish/subscribe to revoked topics until the session ends or the token expires. When permissions change dynamically, it is expected that AS follows a reasonable expiration strategy for the access tokens.   
