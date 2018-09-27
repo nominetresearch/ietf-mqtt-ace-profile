@@ -201,7 +201,7 @@
                 These interfaces MAY be implemented using other protocols, e.g., CoAP or MQTT.
                 This document makes the same assumptions as the Section 4 of
 		<xref target="I-D.ietf-ace-oauth-authz"> the
-                ACE framework<xref> regarding client and RS registration with the AS and establishing of keying material.
+                ACE framework</xref> regarding client and RS registration with the AS and establishing of keying material.
             </t>
 
             <t>This document describes the authorization of the following exchanges between publisher and subscriber
