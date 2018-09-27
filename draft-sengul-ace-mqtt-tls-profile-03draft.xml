@@ -526,15 +526,15 @@
                     </t>
                     <t>
                         Section 3.1.3 of <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref> defines the MQTT Username 
-                          as a UTF-8 encoded string, which is prefixed by a  2-byte length field followed by a UTF-8 encoded character data 
-			  up to 65535 bytes.
+                          as a UTF-8 encoded string, which is prefixed by a  2-byte length field followed by UTF-8 encoded character data 
+			  up to 65535 bytes. Therefore an access token that is not valid UTF-8 MUST be Base64 <xref target="RFC4648"></xref> encoded.
                         <!--If the access token is in a UTF-8 text format, for example, a JWT, it SHOULD be supplied as-is, 
                           in which case it can be up to 65535 bytes.
                         If the access token is binary, for example, a CWT, it MUST be encoded using Base64 <xref target="RFC4648"></xref>;
                           this limits the (binary) token to 49149 bytes.
                         A JWT is distinguishable from Base64 encoded data, so the MQTT server can infer whether the data is encoded or not, and there
                           is no need for a flag to distinguish encoded from unencoded data.-->
-                        The MQTT Password allows binary data (up to 65535 bytes) so SHOULD NOT be Base64 <xref target="RFC4648"></xref> encoded.
+                        (The MQTT Password allows binary data (up to 65535 bytes) so does not require encoding.)
                     </t>
 
                 </section>
