@@ -16,7 +16,9 @@ To generate HTML version _draft-sengul-ace-mqtt-tls-profile-00.html_
 xml2rfc --html draft-sengul-ace-mqtt-tls-profile-00.xml
 ```
 
-For more information on xml2rfc, please see [https://xml2rfc.tools.ietf.org](https://xml2rfc.tools.ietf.org). 
+For more information on xml2rfc, please see [https://xml2rfc.tools.ietf.org](https://xml2rfc.tools.ietf.org).
+
+Installation on Fedora Linux: `dnf install python3-xml2rfc`.
 
 ## Contributing
 
