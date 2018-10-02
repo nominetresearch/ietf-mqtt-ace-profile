@@ -394,9 +394,9 @@
    |    |                 +---v--------------+
    |    |                 |   Broker         |
    |    +(E)Introspection-| Resource Server  |
-   |     request          |                  |
+   |   request (optional) |                  |
    +-(F)Introspection---->|__________________|
-        response
+     response (optional)
            ]]></artwork>
                 </figure>
 
@@ -416,7 +416,7 @@
                     </t>
                     <t>
                         If the AS successfully verifies the access token request and authorizes the client for the
-                        indicated audience (e.g., topics) and scopes (e.g., publish/subscribe permissions),
+                        indicated audience (e.g., RS) and scopes (e.g., publish/subscribe permissions over topics),
                         the AS issues an access token (Figure 1 (B)). 
                         The response includes the parameters described in Section 6.2 of <xref
                             target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>.  
@@ -572,7 +572,7 @@
 		    </t>	
 			
                     <t>
-                        If the broker uses token introspection, it MAY cache the validation result to decide whether to accept
+                        If the token is not self-contained and the broker uses token introspection, it MAY cache the validation result to decide whether to accept
                         subsequent PUBLISH and SUBSCRIBE messages as
                         these messages, which are sent after a connection is set-up, do not contain access tokens.
                         If the introspection result is not cached, then the RS needs to introspect the saved token for
@@ -791,7 +791,8 @@
 	      The Authentication Method is followed by the Authentication Data, which has a property identifier 0x16.
 	      Authentication data is binary data and is defined by  the authentication method. The RS MAY support different
 	      implementations for transporting the authentication data. The first option is that Authentication data contains both the token and
-	      the keyed message digest (MAC) or signature as described in <xref target="connect_v31"></xref>.
+	      the keyed message digest (MAC) or signature as described in <xref target="connect_v31"></xref>.  
+	      The encoding of this field MAY use CBOR and COSE.
 	      In this case, the token validation proceeds as described in <xref target="token_validation"></xref> and the
 	      server responds with a CONNACK.  The reason code of the CONNACK '0x00 (Success)' if the authentication is successful.
 	      In case of an invalid PoP token, the CONNACK reason code is '0x87 (Not Authorized)'.
@@ -813,6 +814,7 @@
 	      Finally, this document allows the CONNECT message to have an empty Authentication Data field. This is the AS discovery option
 	      and the RS responds with the CONNACK reason code '0x87 (Not Authorized)' and includes a User Property for the AS information.
 	      AS Information contains the absolute URI of AS, and MAY also contain a nonce as defined in the Section 5.1.2 of <xref target="I-D.ietf-ace-oauth-authz">the ACE framework</xref>. 
+	      This information MAY be CBOR encoded. 
 	    </t>
 
 	    
@@ -868,10 +870,10 @@
 
 	  <t> This document specifies a profile for the Authentication and Authorization for Constrained Environments (ACE) framework
 	   <xref target="I-D.ietf-ace-oauth-authz"></xref>. Therefore, the security considerations outlined in <xref target="I-D.ietf-ace-oauth-authz"></xref> apply to this work.</t>
-	  <t> In addition, the security considerations outlined in  <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>
+	  <t> In addition, the security considerations outlined in <xref target="MQTT-OASIS-Standard">MQTT v3.1 - the OASIS Standard</xref>
+           and  <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>
 	  apply.  Mainly, this document provides an authorization solution for MQTT, the responsibility of which is left to the specific implementation in  <xref target="MQTT-OASIS-Standard-v5">MQTT v5 - the OASIS Committee Specification</xref>.
-	 In the following, we comment on a few relevant
-	 issues based on the MQTT v5 specification.
+	 In the following, we comment on a few relevant issues based on the current MQTT specifications.
 	  </t>
 
 	  <t>In this document, RS uses the PoP access token to authenticate the client. If the client is able, TLS certificates
