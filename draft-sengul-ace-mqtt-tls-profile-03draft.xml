@@ -534,7 +534,7 @@
                           this limits the (binary) token to 49149 bytes.
                         A JWT is distinguishable from Base64 encoded data, so the MQTT server can infer whether the data is encoded or not, and there
                           is no need for a flag to distinguish encoded from unencoded data.-->
-                        (The MQTT Password allows binary data (up to 65535 bytes) so does not require encoding.)
+                        The MQTT Password allows binary data (up to 65535 bytes), and so, does not require encoding.
                     </t>
 
                 </section>
